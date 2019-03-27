@@ -2,11 +2,8 @@ package org.apache.cordova.firebase;
 public class Review {
 
     private String calificacion;
-
     private String comment;
-
     private String date;
-
     public Review() {
     }
 
