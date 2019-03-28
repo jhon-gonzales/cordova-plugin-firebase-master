@@ -192,6 +192,10 @@ exports.Reviews = function (contractnumber,calificacion, date, success, error) {
   exec(success, error, PLUGIN_NAME, "writeReviews", [calificacion, date,contractnumber]);
 };
 
+exports.ReviewsWithComment = function(contractnumber,calificacion, comment, date, success, error ){
+  exec(success,error, PLUGIN_NAME="writeWithCommet", [calificacion,comment, date,contractnumber]);
+};
+
 exports.AuthToken=function(token,success,error){
   exec(success,error,PLUGIN_NAME,"authCustomToken",[token]);
 };
