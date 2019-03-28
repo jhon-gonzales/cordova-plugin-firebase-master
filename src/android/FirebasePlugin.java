@@ -257,7 +257,7 @@ public class FirebasePlugin extends CordovaPlugin {
         }   
   }
 
-  public void signOut(){
+  public void signOut(CallbackContext callbackContext){
 
     FirebaseAuth.getInstance().signOut();
 
