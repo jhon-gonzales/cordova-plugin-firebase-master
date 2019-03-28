@@ -214,12 +214,8 @@ public class FirebasePlugin extends CordovaPlugin {
       this.writeReviews(callbackContext, args.getString(0), args.getString(1),args.getString(2));
       return true;
   }else if(action.equals("authCustomToken")){
-    //this.cordova.getThreadPool().execute(new Runnable() {
-    //  public void run() {
         this.authCustomToken(callbackContext,args.getString(0));
         return true;
-    //  }
-    //});
   }
     return false;
   }
@@ -236,6 +232,7 @@ public class FirebasePlugin extends CordovaPlugin {
           Log.e("error",e.getMessage());
           callbackContext.error(e.getMessage());
         }
+        FirebaseAuth.getInstance().signOut();
   }
 
   public void authCustomToken(final CallbackContext callbackContext,String mCustomToken){
@@ -261,30 +258,6 @@ public class FirebasePlugin extends CordovaPlugin {
             });
 
   }
-  /*public void loginToFirebase(String token) {
-        Log.i("TAG","loginToFirebase");
-        boolean bUserLoggedInFirebase = false;
-        FirebaseAuth mFirebaseAuth;
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseAuth.signInWithCustomToken(token)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.i("TAG", "signInWithCustomToken:success");
-
-                            bUserLoggedInFirebase = task.isSuccessful();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.i("TAG", "signInWithCustomToken:failure", task.getException());
-
-                        }
-                    }
-
-                });
-
-    }*/
 
   @Override
   public void onPause(boolean multitasking) {
