@@ -199,3 +199,7 @@ exports.ReviewsWithComment = function(contractnumber,calificacion, comment, date
 exports.AuthToken=function(token,success,error){
   exec(success,error,PLUGIN_NAME,"authCustomToken",[token]);
 };
+
+exports.SignOut = function (success, error) {
+  exec(success, error, PLUGIN_NAME, "signOut", []);
+};
