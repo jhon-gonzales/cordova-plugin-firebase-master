@@ -230,7 +230,7 @@ public class FirebasePlugin extends CordovaPlugin {
           mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
           Review reviews = new Review(calificacion, date);
           mDatabase.push().setValue(reviews);
-          FirebaseAuth.getInstance().signOut();
+          //FirebaseAuth.getInstance().signOut();
           callbackContext.success();
           
         } catch (Exception e) {
@@ -246,7 +246,7 @@ public class FirebasePlugin extends CordovaPlugin {
           mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
           Review reviews = new Review(calificacion, comment, date);
           mDatabase.push().setValue(reviews);
-          FirebaseAuth.getInstance().signOut();
+          //FirebaseAuth.getInstance().signOut();
           callbackContext.success();
           
         } catch (Exception e) {
