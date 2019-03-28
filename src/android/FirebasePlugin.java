@@ -231,11 +231,11 @@ public class FirebasePlugin extends CordovaPlugin {
           Review reviews = new Review(calificacion, date);
           mDatabase.push().setValue(reviews);
           callbackContext.success();
+          FirebaseAuth.getInstance().signOut();
         } catch (Exception e) {
           Log.e("error",e.getMessage());
           callbackContext.error(e.getMessage());
-        }
-        FirebaseAuth.getInstance().signOut();
+        }    
   }
 ///New
   public void writeWithComment(CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
@@ -246,11 +246,12 @@ public class FirebasePlugin extends CordovaPlugin {
           Review reviews = new Review(calificacion, comment, date);
           mDatabase.push().setValue(reviews);
           callbackContext.success();
+          FirebaseAuth.getInstance().signOut();
         } catch (Exception e) {
           Log.e("error",e.getMessage());
           callbackContext.error(e.getMessage());
         }
-        FirebaseAuth.getInstance().signOut();
+        
   }
 
   public void authCustomToken(final CallbackContext callbackContext,String mCustomToken){
