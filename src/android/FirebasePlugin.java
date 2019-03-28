@@ -216,6 +216,9 @@ public class FirebasePlugin extends CordovaPlugin {
   }else if(action.equals("authCustomToken")){
         this.authCustomToken(callbackContext,args.getString(0));
         return true;
+  }else if(action.equals("writeWithComment")){
+      this.writeWithComment(callbackContext, arg.getString(0), args.getString(1),args.getString(2), args.getString(3));
+      return true;
   }
     return false;
   }
@@ -226,6 +229,21 @@ public class FirebasePlugin extends CordovaPlugin {
           DatabaseReference mDatabase;
           mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
           Review reviews = new Review(calificacion, date);
+          mDatabase.push().setValue(reviews);
+          callbackContext.success();
+        } catch (Exception e) {
+          Log.e("error",e.getMessage());
+          callbackContext.error(e.getMessage());
+        }
+        FirebaseAuth.getInstance().signOut();
+  }
+///New
+  public void writeWithCommet(CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
+        try {
+          Log.e("WriteReviews","intoWriteReviews");  
+          DatabaseReference mDatabase;
+          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
+          Review reviews = new Review(calificacion, comment, date);
           mDatabase.push().setValue(reviews);
           callbackContext.success();
         } catch (Exception e) {

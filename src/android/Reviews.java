@@ -12,5 +12,4 @@ public class Reviews {
         this.calificacion = calificacion;
         this.date = date;
     }
-
 }
