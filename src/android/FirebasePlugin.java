@@ -217,7 +217,7 @@ public class FirebasePlugin extends CordovaPlugin {
         this.authCustomToken(callbackContext,args.getString(0));
         return true;
   }else if(action.equals("writeWithComment")){
-      this.writeWithComment(callbackContext, arg.getString(0), args.getString(1),args.getString(2), args.getString(3));
+      this.writeWithComment(callbackContext, args.getString(0), args.getString(1),args.getString(2), args.getString(3));
       return true;
   }
     return false;
