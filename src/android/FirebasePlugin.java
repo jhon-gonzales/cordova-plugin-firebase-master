@@ -238,7 +238,7 @@ public class FirebasePlugin extends CordovaPlugin {
         FirebaseAuth.getInstance().signOut();
   }
 ///New
-  public void writeWithCommet(CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
+  public void writeWithComment(CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
         try {
           Log.e("WriteReviews","intoWriteReviews");  
           DatabaseReference mDatabase;
