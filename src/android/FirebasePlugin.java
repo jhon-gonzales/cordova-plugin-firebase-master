@@ -259,8 +259,12 @@ public class FirebasePlugin extends CordovaPlugin {
 
   public void signOut(CallbackContext callbackContext){
 
-    FirebaseAuth.getInstance().signOut();
-
+    try {
+          FirebaseAuth.getInstance().signOut();
+          callbackContext.success();
+        } catch (Exception e) {
+          callbackContext.error(e.getException());
+        }
   }
 
   public void authCustomToken(final CallbackContext callbackContext,String mCustomToken){
