@@ -77,6 +77,7 @@ import org.apache.cordova.firebase.Review;
 public class FirebasePlugin extends CordovaPlugin {
 
   private FirebaseAnalytics mFirebaseAnalytics;
+  private FirebaseAuth mAuth;
   private static final String TAG = "FirebasePlugin";
   protected static final String KEY = "badge";
 
@@ -94,6 +95,7 @@ public class FirebasePlugin extends CordovaPlugin {
       public void run() {
         Log.d(TAG, "Starting Firebase plugin");
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        mAuth= FirebaseAuth.getInstance();
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
         if (extras != null && extras.size() > 1) {
           if (FirebasePlugin.notificationStack == null) {
@@ -247,9 +249,20 @@ public class FirebasePlugin extends CordovaPlugin {
           DatabaseReference mDatabase;
           mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
           Review reviews = new Review(calificacion, comment, date);
-          mDatabase.push().setValue(reviews);
+          mDatabase.push().setValue(reviews, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+              if (databaseError != null) {
+                System.out.println("Data could not be saved " + databaseError.getMessage());
+                callbackContext.error("Data could not be saved ");
+              } else {
+                System.out.println("Data saved successfully.");
+                callbackContext.success();
+              }
+            }
+          });
           
-          callbackContext.success();
+          //callbackContext.success();
           
         } catch (Exception e) {
           Log.e("error",e.getMessage());
@@ -260,7 +273,7 @@ public class FirebasePlugin extends CordovaPlugin {
   public void signOut(CallbackContext callbackContext){
 
     try {
-          FirebaseAuth.getInstance().signOut();
+          mAuth.getInstance().signOut();
           callbackContext.success();
         } catch (Exception e) {
           callbackContext.error(e.getMessage());
@@ -268,7 +281,7 @@ public class FirebasePlugin extends CordovaPlugin {
   }
 
   public void authCustomToken(final CallbackContext callbackContext,String mCustomToken){
-    FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    //FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
     mAuth.signInWithCustomToken(mCustomToken)
           .addOnCompleteListener(this.cordova.getActivity(), new OnCompleteListener<AuthResult>() {
