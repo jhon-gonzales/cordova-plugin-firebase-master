@@ -257,13 +257,13 @@ public class FirebasePlugin extends CordovaPlugin {
         }   
   }
 
-  public void signOut(CallbackContext callbackContext){
+  public void signOut(final CallbackContext callbackContext){
 
     try {
           FirebaseAuth.getInstance().signOut();
           callbackContext.success();
         } catch (Exception e) {
-          callbackContext.error(e.getException());
+          callbackContext.error(e.getMessage());
         }
   }
 
