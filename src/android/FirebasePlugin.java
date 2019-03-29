@@ -267,7 +267,7 @@ public class FirebasePlugin extends CordovaPlugin {
         }
   }
 
-  public void authCustomToken(final CallbackContext callbackContext,String mCustomToken){
+  public void authCustomToken(CallbackContext callbackContext,String mCustomToken){
     FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
     mAuth.signInWithCustomToken(mCustomToken)
