@@ -228,14 +228,25 @@ public class FirebasePlugin extends CordovaPlugin {
     return false;
   }
 
-  public void writeReviews(CallbackContext callbackContext, String calificacion, String date,String contractnumber) {    
+  public void writeReviews(final CallbackContext callbackContext, String calificacion, String date,String contractnumber) {    
         try {
           Log.e("WriteReviews","intoWriteReviews");  
           DatabaseReference mDatabase;
           mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
           Review reviews = new Review(calificacion, date);
-          mDatabase.push().setValue(reviews);
-          callbackContext.success();
+          mDatabase.push().setValue(reviews, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+              if (databaseError != null) {
+                System.out.println("Data could not be saved " + databaseError.getMessage());
+                callbackContext.error("Data could not be saved ");
+              } else {
+                System.out.println("Data saved successfully.");
+                callbackContext.success();
+              }
+            }
+          });
+          //callbackContext.success();
           
         } catch (Exception e) {
           Log.e("error",e.getMessage());
@@ -243,7 +254,7 @@ public class FirebasePlugin extends CordovaPlugin {
         }    
   }
 ///New
-  public void writeWithComment(CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
+  public void writeWithComment(final CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
         try {
           Log.e("WriteReviews","intoWriteReviews");  
           DatabaseReference mDatabase;
