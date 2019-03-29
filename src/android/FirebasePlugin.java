@@ -234,7 +234,7 @@ public class FirebasePlugin extends CordovaPlugin {
   public void writeUsers(final CallbackContext callbackContext, String phoneNumber, String registerDate, String contractnumber){
     try{
       DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase .getInstance().getReference.child("users").child(contractnumber);
+      mDatabase = FirebaseDatabase.getInstance().getReference.child("users").child(contractnumber);
       Users users = new Users(phoneNumber, registerDate);
       mDatabase.push.setValue(users, new DatabaseReference.CompletionListener(){
         @Override
