@@ -187,6 +187,12 @@ exports.dynamicLinkCallback = function (dynamicLink) {
   document.dispatchEvent(ev);
 };
 
+//
+//Realtime Database
+//
+exports.Users = function (contractnumber,phoneNumber, registerDate, success, error) {
+  exec(success, error, PLUGIN_NAME, "writeUsers", [phoneNumber, registerDate, contractnumber]);
+};
 
 exports.Reviews = function (contractnumber,calificacion, date, success, error) {
   exec(success, error, PLUGIN_NAME, "writeReviews", [calificacion, date,contractnumber]);
