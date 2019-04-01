@@ -236,7 +236,7 @@ public class FirebasePlugin extends CordovaPlugin {
       DatabaseReference mDatabase;
       mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
       Users users = new Users(phoneNumber, registerDate);
-      mDatabase.push().setValue(users, new DatabaseReference.CompletionListener(){
+      mDatabase.setValue(users, new DatabaseReference.CompletionListener(){
         @Override
         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference){
           if (databaseError != null){
