@@ -236,7 +236,7 @@ public class FirebasePlugin extends CordovaPlugin {
 
   public boolean userExist(final CallbackContext callbackContext, String contractnumber){
     DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase.getInstance().getReference().ref("users").orderByChild("users").equalTo(contractnumber).once(value).then(function(snapshot){
+      mDatabase = FirebaseDatabase.getInstance().getReference().ref("users").orderByChild("users").equalTo(contractnumber).once(value, function(snapshot){
         if (snapshot.exists()){
           return true;
         }else{
