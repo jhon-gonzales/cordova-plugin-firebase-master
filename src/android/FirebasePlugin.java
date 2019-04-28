@@ -237,7 +237,7 @@ public class FirebasePlugin extends CordovaPlugin {
   public boolean userExist(final CallbackContext callbackContext, String contractnumber){
     DatabaseReference mDatabase;
       mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber)
-      .addListenerForSingleValueEvent(new ValueEventListener()     
+      .addListenerForSingleValueEvent(new ValueEventListener(){   
         @Override
         public void onDataChange(DataSnapshot snapshot) {
             if (snapshot.exists()) {
@@ -251,7 +251,7 @@ public class FirebasePlugin extends CordovaPlugin {
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
-            Log.e(TAG, databaseError.toString();
+            Log.e(TAG, databaseError.toString());
         }
     });
         
