@@ -194,6 +194,10 @@ exports.Users = function (contractnumber,phoneNumber, registerDate, success, err
   exec(success, error, PLUGIN_NAME, "writeUsers", [phoneNumber, registerDate, contractnumber]);
 };
 
+exports.Users = function (contractnumber, success, error){
+  exec(success, error, PLUGIN_NAME, "userExist", [contractnumber]);
+};
+
 exports.Reviews = function (contractnumber,calificacion, date, success, error) {
   exec(success, error, PLUGIN_NAME, "writeReviews", [calificacion, date,contractnumber]);
 };

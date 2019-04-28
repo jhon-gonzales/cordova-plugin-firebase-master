@@ -227,8 +227,23 @@ public class FirebasePlugin extends CordovaPlugin {
   }else if(action.equals("writeUsers")){
       this.writeUsers(callbackContext, args.getString(0), args.getString(1),args.getString(2));
       return true;
+  }else if(action.equals("userExist")){
+      this.userExist(callbackContext, args.getString(0));
+      return true;
   }
     return false;
+  }
+
+  public boolean userExist(final CallbackContext callbackContext, String contractnumber){
+    DatabaseReference mDatabase;
+      mDatabase = FirebaseDatabase.getInstance().getReference().ref("users").orderByChild('users').equalTo(contractnumber).once('value').then(function(snapshot){
+        if (snapshot.exists()){
+          return true;
+        }else{
+          return false;
+        }
+
+      });
   }
 
   public void writeUsers(final CallbackContext callbackContext, String phoneNumber, String registerDate, String contractnumber){
