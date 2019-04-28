@@ -241,10 +241,10 @@ public class FirebasePlugin extends CordovaPlugin {
         @Override
         public void onDataChange(DataSnapshot snapshot) {
             if (snapshot.exists()) {
-                Log.i(TAG, snapshot.val());
+                //Log.i(TAG, snapshot.val());
                 return true;
             } else {
-                Log.e(TAG, "Not found: " + uid);
+                //Log.e(TAG, "Not found: " + uid);
                 return false;
             }
         }
