@@ -236,7 +236,7 @@ public class FirebasePlugin extends CordovaPlugin {
 
 public void userExist(final CallbackContext callbackContext, final String contractnumber){
     //final boolean[] result = new boolean[1];
-    final ArrayList<String> x = new ArrayList<>();
+    final ArrayList<String> x = new ArrayList();
     DatabaseReference mDatabase;
       mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
       mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
