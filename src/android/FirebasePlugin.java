@@ -241,7 +241,7 @@ public class FirebasePlugin extends CordovaPlugin {
       mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            if (dataSnapshot.hasChild(contractnumber)) {
+            if (dataSnapshot.hasChild(final contractnumber)) {
                 //Log.i(TAG, snapshot.val());
                 result = true;
             } else {
