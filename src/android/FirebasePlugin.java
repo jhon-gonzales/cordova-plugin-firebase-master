@@ -236,7 +236,7 @@ public class FirebasePlugin extends CordovaPlugin {
 
 public void userExist(final CallbackContext callbackContext, final String contractnumber){
     
-    final ArrayList<String> inOnFirebase = new ArrayList();
+    final ArrayList<String> isOnFirebase = new ArrayList<String>();
     DatabaseReference mDatabase;
       mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
       mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -244,14 +244,15 @@ public void userExist(final CallbackContext callbackContext, final String contra
         public void onDataChange(DataSnapshot dataSnapshot) {
           
             if (dataSnapshot.exists()) {
-              inOnFirebase.add("true");
-              Log.i(TAG, String.valueOf(inOnFirebase.size()));
-              callbackContext.success(inOnFirebase.size());
+              isOnFirebase.add("true"); 
+              Log.i(TAG, String.valueOf(isOnFirebase.size()));
+              callbackContext.success(isOnFirebase.size()); //isOnFirebase 1 = true
                 
             } else {
-              Log.i(TAG, String.valueOf(inOnFirebase.size()));
-              callbackContext.success(inOnFirebase.size());
+              Log.i(TAG, String.valueOf(isOnFirebase.size()));
+              callbackContext.success(isOnFirebase.size()); // isOnFirebase 0 = false
             }
+            isOnFirebase.clear();
         }
 
         @Override
@@ -264,34 +265,7 @@ public void userExist(final CallbackContext callbackContext, final String contra
     });
         
   }
-/*
-  public void userExist(final CallbackContext callbackContext, final String contractnumber){
-      DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
-      mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            if (dataSnapshot.exists()) {
-                //Log.i(TAG, snapshot.val());
-                isOnFirebase (true);
-            } else {
-                //Log.e(TAG, "Not found: " + uid);
-                isOnFirebase (false);
-            }
-        }
 
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            //Log.e(TAG, databaseError.toString());
-            throw databaseError.toException();
-        }
-    });
-  }
-
-  public boolean isOnFirebase(boolean value){
-      return value;
-    }
-*/
 
 
   public void writeUsers(final CallbackContext callbackContext, String phoneNumber, String registerDate, String contractnumber){
@@ -337,7 +311,6 @@ public void userExist(final CallbackContext callbackContext, final String contra
               }
             }
           });
-          //callbackContext.success();
           
         } catch (Exception e) {
           Log.e("error",e.getMessage());
