@@ -259,7 +259,7 @@ public void userExist(final CallbackContext callbackContext, final String contra
         public void onCancelled(DatabaseError databaseError) {
             //Log.e(TAG, databaseError.toString());
             throw databaseError.toException();
-            callbackContext.error(databaseError.toString());
+            //callbackContext.error(databaseError.toString());
         }
     });
         
