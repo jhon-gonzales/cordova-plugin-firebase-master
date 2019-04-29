@@ -245,11 +245,11 @@ public void userExist(final CallbackContext callbackContext, final String contra
           boolean y = false;
             if (dataSnapshot.exists()) {
               x.add("true");
-              Log.i(TAG, x.size());
+              Log.i(TAG, String.valueOf(x.size()));
               callbackContext.success(x.size());
                 
             } else {
-              Log.i(TAG, x.size());
+              Log.i(TAG, String.valueOf(x.size()));
               callbackContext.success(x.size());
             }
             //Log.d(TAG, "Test = " + result);
