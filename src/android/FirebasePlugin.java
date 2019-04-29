@@ -234,7 +234,7 @@ public class FirebasePlugin extends CordovaPlugin {
     return false;
   }
 
-  public boolean userExist(final CallbackContext callbackContext, String contractnumber){
+  public static boolean userExist(final CallbackContext callbackContext, String contractnumber){
     boolean result;
     DatabaseReference mDatabase;
       mDatabase = FirebaseDatabase.getInstance().getReference().child("users")
