@@ -242,11 +242,12 @@ public boolean userExist(final CallbackContext callbackContext, final String con
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()) {
-                //Log.i(TAG, snapshot.val());
-                result[0] = true;
+              result[0] = true;
+                Log.i(TAG, rusult[0]);
+                
             } else {
-                //Log.e(TAG, "Not found: " + uid);
                 result[0] = false;
+                Log.i(TAG, rusult[0]);
             }
             //Log.d(TAG, "Test = " + result);
         }
