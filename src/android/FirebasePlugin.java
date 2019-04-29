@@ -237,8 +237,8 @@ public class FirebasePlugin extends CordovaPlugin {
   public boolean userExist(final CallbackContext callbackContext, String contractnumber){
     boolean result;
     DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase.getInstance().getReference().child("users")
-      .addListenerForSingleValueEvent(this.cordova.getActivity(), new ValueEventListener() {
+      mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+      mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             if (dataSnapshot.hasChild(contractnumber)) {
