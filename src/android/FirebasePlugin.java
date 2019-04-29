@@ -235,19 +235,21 @@ public class FirebasePlugin extends CordovaPlugin {
   }
 
 public boolean userExist(final CallbackContext callbackContext, final String contractnumber){
-    final boolean[] result = new boolean[1];
+    //final boolean[] result = new boolean[1];
+    final boolean x = false;
     DatabaseReference mDatabase;
       mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
       mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
+          boolean y = false;
             if (dataSnapshot.exists()) {
-              result[0] = true;
-                Log.i(TAG, result[0].toString());
+              x = y;
+                Log.i(TAG, x);
                 
             } else {
-                result[0] = false;
-                Log.i(TAG, result[0].toString());
+                x = y;
+                Log.i(TAG, x);
             }
             //Log.d(TAG, "Test = " + result);
         }
