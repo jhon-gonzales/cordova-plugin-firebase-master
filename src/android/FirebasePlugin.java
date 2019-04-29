@@ -234,24 +234,19 @@ public class FirebasePlugin extends CordovaPlugin {
     return false;
   }
 
-  public boolean userExist(final CallbackContext callbackContext, final String contractnumber){
-    String contractnumber = contractnumber;
-    boolean result = false;
-    public void getUser(String contractnumber){
+  public void userExist(final CallbackContext callbackContext, final String contractnumber){
       DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+      mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
       mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-          
-            if (dataSnapshot.hasChild(contractnumber)) {
+            if (dataSnapshot.exists()) {
                 //Log.i(TAG, snapshot.val());
                 isOnFirebase (true);
             } else {
                 //Log.e(TAG, "Not found: " + uid);
                 isOnFirebase (false);
             }
-            //Log.d(TAG, "Test = " + result);
         }
 
         @Override
@@ -260,15 +255,13 @@ public class FirebasePlugin extends CordovaPlugin {
             throw databaseError.toException();
         }
     });
-    }
+  }
 
-    public boolean isOnFirebase(boolean value){
+  public boolean isOnFirebase(boolean value){
       return value;
     }
 
-    result = value;
-    return result;
-  }
+
 
   public void writeUsers(final CallbackContext callbackContext, String phoneNumber, String registerDate, String contractnumber){
     try{
