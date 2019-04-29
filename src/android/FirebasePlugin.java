@@ -244,7 +244,7 @@ public void userExist(final CallbackContext callbackContext, final String contra
         public void onDataChange(DataSnapshot dataSnapshot) {
           
             if (dataSnapshot.exists()) {
-              x.add("true");
+              inOnFirebase.add("true");
               Log.i(TAG, String.valueOf(inOnFirebase.size()));
               callbackContext.success(inOnFirebase.size());
                 
