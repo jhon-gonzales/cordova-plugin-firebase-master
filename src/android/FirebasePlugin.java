@@ -243,11 +243,11 @@ public boolean userExist(final CallbackContext callbackContext, final String con
         public void onDataChange(DataSnapshot dataSnapshot) {
             if (dataSnapshot.exists()) {
               result[0] = true;
-                Log.i(TAG, rusult[0]);
+                Log.i(TAG, result[0]);
                 
             } else {
                 result[0] = false;
-                Log.i(TAG, rusult[0]);
+                Log.i(TAG, result[0]);
             }
             //Log.d(TAG, "Test = " + result);
         }
