@@ -230,6 +230,9 @@ public class FirebasePlugin extends CordovaPlugin {
   }else if(action.equals("userExist")){
       this.userExist(callbackContext, args.getString(0));
       return true;
+  }else if(action.equals("writeDate")){
+      this.writeDate(callbackContext, args.getString(0), args.getString(1));
+      return true;
   }
     return false;
   }
@@ -318,6 +321,32 @@ public void userExist(final CallbackContext callbackContext, final String contra
         }    
   }
 ///New
+
+public void writeDate(final CallbackContext callbackContext, String date, String contractnumber) {    
+        try {  
+          DatabaseReference mDatabase;
+          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
+          Review reviews = new Review(date);
+          mDatabase.setValue(reviews, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+              if (databaseError != null) {
+                System.out.println("Data could not be saved " + databaseError.getMessage());
+                callbackContext.error("Data could not be saved ");
+              } else {
+                System.out.println("Data saved successfully.");
+                callbackContext.success();
+              }
+            }
+          });
+          
+        } catch (Exception e) {
+          Log.e("error",e.getMessage());
+          callbackContext.error(e.getMessage());
+        }   
+  }
+
+
   public void writeWithComment(final CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
         try {
           Log.e("WriteReviews","intoWriteReviews");  
