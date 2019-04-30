@@ -326,8 +326,8 @@ public void writeDate(final CallbackContext callbackContext, String date, String
         try {  
           DatabaseReference mDatabase;
           mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
-          Review reviews = new Review(date);
-          mDatabase.setValue(reviews, new DatabaseReference.CompletionListener() {
+          //Review reviews = new Review(date);
+          mDatabase.setValue(date, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
               if (databaseError != null) {
