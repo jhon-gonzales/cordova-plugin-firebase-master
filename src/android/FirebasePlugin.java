@@ -256,7 +256,7 @@ public class FirebasePlugin extends CordovaPlugin {
               }
               for (Review userReview : lastReview){
                 if (orderOfReview == lastReview.size() - 1){
-                  callbackContext.success(userReview.getCalification());
+                  callbackContext.success(userReview.getCalificacion());
 
                 }else{
                   orderOfReview++;
