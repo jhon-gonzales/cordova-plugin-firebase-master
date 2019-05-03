@@ -254,26 +254,26 @@ public class FirebasePlugin extends CordovaPlugin {
               for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                 lastReview.add(postSnapshot.getValue(Review.class));
               }
-              for (Review userReview : lastReview){
-                if (orderOfReview == lastReview.size() - 1){
-                  callbackContext.success(userReview.getCalificacion());
-
-                }else{
-                  orderOfReview++;
+              if (lastReview.size() == 0){
+                callbackContext.success("false");
+              }else{
+                  for (Review userReview : lastReview){
+                  if (orderOfReview == lastReview.size() - 1){
+                    callbackContext.success(userReview.getCalificacion());
+                  }else{
+                    orderOfReview++;
+                  }
                 }
-              }
+              }  
           //****************************************
             } else {
-              callbackContext.success("false"); // isOnFirebase 0 = false
+              callbackContext.success("false");
             }
             //isOnFirebase.clear();
         }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
-            //Log.e(TAG, databaseError.toString());
-            //throw databaseError.toException();
-            //callbackContext.error(databaseError.toString());
             callbackContext.error(databaseError.getMessage());
         }
     });
