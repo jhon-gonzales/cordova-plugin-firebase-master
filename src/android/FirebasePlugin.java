@@ -219,7 +219,7 @@ public class FirebasePlugin extends CordovaPlugin {
         this.authCustomToken(callbackContext,args.getString(0));
         return true;
   }else if(action.equals("writeReviewsWithComment")){
-      this.writeWithComment(callbackContext, args.getString(0), args.getString(1),args.getString(2), args.getString(3));
+      this.writeReviewsWithComment(callbackContext, args.getString(0), args.getString(1),args.getString(2), args.getString(3));
       return true;
   }else if(action.equals("signOut")){
       this.signOut(callbackContext);
