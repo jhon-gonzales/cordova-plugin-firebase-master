@@ -18,10 +18,6 @@ public class Review {
         this.date = date;
     }
 
-    //public Review(String date){
-    //    this.date = date;
-    //}
-
     public String getCalificacion() {
         return calificacion;
     }

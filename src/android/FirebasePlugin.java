@@ -233,9 +233,53 @@ public class FirebasePlugin extends CordovaPlugin {
   }else if(action.equals("writeDate")){
       this.writeDate(callbackContext, args.getString(0), args.getString(1));
       return true;
+  }else if(action.equals("validateLastUserReview")){
+      this.validateLastUserReview(callbackContext, args.getString(0));
+      return true;
   }
     return false;
   }
+
+  public void validateLastUserReview(final CallbackContext callbackContext, String contractnumber){
+      final ArrayList<Review> lastReview = new ArrayList<>();
+      DatabaseReference mDatabase;
+      mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
+
+      mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+          
+            if (dataSnapshot.exists()) {
+              int orderOfReview = 0;
+              for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                lastReview.add(postSnapshot.getValue(Review.class));
+              }
+              for (Review userReview : lastReview){
+                if (orderOfReview == lastReview.size() - 1){
+                  callbackContext.success(userReview.getCalification());
+
+                }else{
+                  orderOfReview++;
+                }
+              }
+          //****************************************
+            } else {
+              callbackContext.success("false"); // isOnFirebase 0 = false
+            }
+            //isOnFirebase.clear();
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            //Log.e(TAG, databaseError.toString());
+            //throw databaseError.toException();
+            //callbackContext.error(databaseError.toString());
+            callbackContext.error(databaseError.getMessage());
+        }
+    });
+  }
+
+
 
 public void userExist(final CallbackContext callbackContext, final String contractnumber){
     
