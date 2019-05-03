@@ -266,10 +266,10 @@ public class FirebasePlugin extends CordovaPlugin {
                 }
               }  
           //****************************************
-            } else {
+            }else{
               callbackContext.success("false");
             }
-            //isOnFirebase.clear();
+            lastReview.clear();
         }
 
         @Override
