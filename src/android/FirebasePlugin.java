@@ -218,7 +218,7 @@ public class FirebasePlugin extends CordovaPlugin {
   }else if(action.equals("authCustomToken")){
         this.authCustomToken(callbackContext,args.getString(0));
         return true;
-  }else if(action.equals("writeWithComment")){
+  }else if(action.equals("writeReviewsWithComment")){
       this.writeWithComment(callbackContext, args.getString(0), args.getString(1),args.getString(2), args.getString(3));
       return true;
   }else if(action.equals("signOut")){
@@ -309,8 +309,7 @@ public void userExist(final CallbackContext callbackContext, final String contra
             //callbackContext.error(databaseError.toString());
             callbackContext.error(databaseError.getMessage());
         }
-    });
-        
+    });   
   }
 
 
@@ -324,25 +323,24 @@ public void userExist(final CallbackContext callbackContext, final String contra
         @Override
         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference){
           if (databaseError != null){
-            System.out.println("Data could not be saved " + databaseError.getMessage());
+                System.out.println("Data could not be saved " + databaseError.getMessage());
                 callbackContext.error("Data could not be saved ");
           }else{
-            System.out.println("Data saved successfully.");
+                System.out.println("Data saved successfully.");
                 callbackContext.success();
           }
         }
       });
 
     }catch(Exception e){
-      Log.e("error",e.getMessage());
+          Log.e("error",e.getMessage());
           callbackContext.error(e.getMessage());
 
     }
   }
 
   public void writeReviews(final CallbackContext callbackContext, String calificacion, String date,String contractnumber) {    
-        try {
-          Log.e("WriteReviews","intoWriteReviews");  
+        try {  
           DatabaseReference mDatabase;
           mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
           Review reviews = new Review(calificacion, date);
@@ -370,7 +368,6 @@ public void writeDate(final CallbackContext callbackContext, String date, String
         try {  
           DatabaseReference mDatabase;
           mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
-          //Review reviews = new Review(date);
           mDatabase.setValue(date, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -391,9 +388,8 @@ public void writeDate(final CallbackContext callbackContext, String date, String
   }
 
 
-  public void writeWithComment(final CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
-        try {
-          Log.e("WriteReviews","intoWriteReviews");  
+  public void writeReviewsWithComment(final CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
+        try { 
           DatabaseReference mDatabase;
           mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
           Review reviews = new Review(calificacion, comment, date);
@@ -409,8 +405,6 @@ public void writeDate(final CallbackContext callbackContext, String date, String
               }
             }
           });
-          
-          //callbackContext.success();
           
         } catch (Exception e) {
           Log.e("error",e.getMessage());
@@ -430,7 +424,6 @@ public void writeDate(final CallbackContext callbackContext, String date, String
 
   public void authCustomToken(final CallbackContext callbackContext,String mCustomToken){
     //FirebaseAuth mAuth= FirebaseAuth.getInstance();
-
     mAuth.signInWithCustomToken(mCustomToken)
           .addOnCompleteListener(this.cordova.getActivity(), new OnCompleteListener<AuthResult>() {
                 @Override
@@ -439,8 +432,6 @@ public void writeDate(final CallbackContext callbackContext, String date, String
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("authCustomToken", "signInWithCustomToken:success");
                         callbackContext.success("signInWithCustomToken:success");
-                        //FirebaseUser user = mAuth.getCurrentUser();
-                        //updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("authCustomToken", "signInWithCustomToken:failure", task.getException());
