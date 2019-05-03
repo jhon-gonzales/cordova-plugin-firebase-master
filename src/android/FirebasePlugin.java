@@ -241,7 +241,7 @@ public class FirebasePlugin extends CordovaPlugin {
   }
 
   public void validateLastUserReview(final CallbackContext callbackContext, String contractnumber){
-      final ArrayList<Review> lastReview = new ArrayList<>();
+      final ArrayList<Review> lastReview = new ArrayList<Review>();
       DatabaseReference mDatabase;
       mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
 
