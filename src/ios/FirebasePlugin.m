@@ -9,6 +9,7 @@
 @import FirebaseRemoteConfig;
 @import FirebasePerformance;
 @import FirebaseAuth;
+@import Firebase;
 
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 @import UserNotifications;
@@ -36,6 +37,29 @@ static FirebasePlugin *firebasePlugin;
     NSLog(@"FirebasePlugin - Starting Firebase plugin");
     firebasePlugin = self;
 }
+
+//
+// Database Realtime
+//
+
+- (void)authCustomToken:(CDVInvokedUrlCommand *)command {
+
+    CDVPluginResult* pluginResult = nil;
+    NSString* mCustomToken = [command.arguments objectAtIndex:0];
+
+    [[FIRAuth auth] signInWithCustomToken:mCustomToken
+                           completion:^(FIRAuthDataResult * _Nullable authResult,
+                                        NSError * _Nullable error) {
+        if (error){
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        }else{
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        }
+
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
 
 //
 // Notifications
