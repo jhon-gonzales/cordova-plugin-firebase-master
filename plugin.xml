@@ -118,7 +118,7 @@
     <header-file src="src/ios/FirebasePlugin.h" />
     <source-file src="src/ios/FirebasePlugin.m" />
 
-    <framework src="Firebase/Core" type="podspec" spec="~> 6.0.0"/>
+    <framework src="Firebase/Core" type="podspec" spec="~> 6.0"/>
     
     
     <framework src="Fabric" type="podspec" spec="~> 1.9.0" />
