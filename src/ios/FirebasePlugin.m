@@ -9,7 +9,7 @@
 @import FirebaseRemoteConfig;
 @import FirebasePerformance;
 @import FirebaseAuth;
-@import Firebase;
+//@import Firebase;
 
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 @import UserNotifications;
@@ -37,9 +37,7 @@ static FirebasePlugin *firebasePlugin;
     NSLog(@"FirebasePlugin - Starting Firebase plugin");
     firebasePlugin = self;
 
-    if(![FIRApp defaultApp]) {
-        [FIRApp configure];
-    }
+    
 }
 
 //
