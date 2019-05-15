@@ -7,7 +7,7 @@
 @import FirebaseAnalytics;
 @import FirebaseRemoteConfig;
 @import FirebaseAuth;
-@import Firebase;
+//@import Firebase;
 @import FirebaseDatabase;
 #import <objc/runtime.h>
 
