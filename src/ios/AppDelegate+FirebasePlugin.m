@@ -54,7 +54,7 @@
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     [self application:application didFinishLaunchingWithOptions:launchOptions];
-    [FIRApp configure]
+    [FIRApp configure];
     return YES;
 }
 
