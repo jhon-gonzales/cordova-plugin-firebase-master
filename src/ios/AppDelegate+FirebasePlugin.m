@@ -52,7 +52,7 @@
 }
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    [FIRApp configure];
+    [FIRApp configure].delegate = self;;
     return YES;
 }
 
