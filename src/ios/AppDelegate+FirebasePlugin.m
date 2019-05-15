@@ -54,7 +54,7 @@
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     [self application:application didFinishLaunchingWithOptions:launchOptions];
-    [FIRApp configure].delegate = self;;
+    [FIRApp configure]
     return YES;
 }
 
