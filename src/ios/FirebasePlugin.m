@@ -9,7 +9,7 @@
 @import FirebaseRemoteConfig;
 @import FirebasePerformance;
 @import FirebaseAuth;
-//@import Firebase;
+@import Firebase;
 
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 @import UserNotifications;
@@ -43,7 +43,7 @@ static FirebasePlugin *firebasePlugin;
 //
 // Database Realtime
 //
-/*
+
 - (void)authCustomToken:(CDVInvokedUrlCommand *)command {
 
     CDVPluginResult* pluginResult = nil;
@@ -61,7 +61,7 @@ static FirebasePlugin *firebasePlugin;
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
 }
-*/
+
 
 //
 // Notifications
