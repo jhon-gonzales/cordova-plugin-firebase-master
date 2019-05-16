@@ -118,16 +118,7 @@
     <header-file src="src/ios/FirebasePlugin.h" />
     <source-file src="src/ios/FirebasePlugin.m" />
 
-    <podspec>
-            <config>
-                <source url="https://github.com/CocoaPods/Specs.git"/>
-            </config>
-            <pods>
-                <pod name="Firebase/Core" spec="~> 6.0.0" />
-                <pod name="Firebase/Auth" spec="~> 6.0.0" />
-                
-            </pods>
-        </podspec>
+    
 
     <framework src="Fabric" type="podspec" spec="~> 1.7.11" />
     <framework src="Crashlytics" type="podspec" spec="~> 3.10.7" />
