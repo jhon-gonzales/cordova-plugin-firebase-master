@@ -125,7 +125,7 @@
             <pods>
                 <pod name="Firebase/Core" spec="~> 6.0.0" />
                 <pod name="Firebase/Auth" spec="~> 6.0.0" />
-                <pod name="Firebase/Database" spec="~> 6.0.0" />
+                
             </pods>
         </podspec>
 
