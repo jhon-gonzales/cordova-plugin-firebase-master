@@ -123,17 +123,14 @@
                 <source url="https://github.com/CocoaPods/Specs.git"/>
             </config>
             <pods>
-                
                 <pod name="Firebase/Core" spec="~> 6.0.0" />
-                <pod name="Firebase/Auth" spec="~> 6.0.0" />
-                
                 <pod name="Fabric" spec="~> 1.9" />
                 <pod name="Crashlytics" spec="~> 3.12" />
-                <pod name="FirebaseAnalytics" spec="~> 4.2" />
-                <pod name="FirebaseMessaging" spec="~> 2.2" />
                 
-                <pod name="FirebaseRemoteConfig" spec="~> 2.1.3" />
-                <pod name="FirebasePerformance" spec="~> 1.1.3" />
+                <pod name="Firebase/Messaging" spec="~> 4.0.0" />
+                <pod name="Firebase/Auth" spec="~> 6.0.0" />
+                <pod name="Firebase/RemoteConfig" spec="~> 4.0.0" />
+                <pod name="Firebase/Performance" spec="~> 3.0.0" />
             </pods>
         </podspec>
 
