@@ -42,7 +42,7 @@ static FirebasePlugin *firebasePlugin;
 //
 // Database Realtime
 //
-
+/*
 - (void)authCustomToken:(CDVInvokedUrlCommand *)command {
 
     CDVPluginResult* pluginResult = nil;
@@ -60,7 +60,7 @@ static FirebasePlugin *firebasePlugin;
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
 }
-
+*/
 
 //
 // Notifications
