@@ -35,8 +35,8 @@ static FirebasePlugin *firebasePlugin;
 
 - (void)pluginInitialize {
     NSLog(@"FirebasePlugin - Starting Firebase plugin");
-    firebasePlugin = self;
-    
+    //firebasePlugin = self;
+
     if(![FIRApp defaultApp]) {
         [FIRApp configure];
     }
@@ -51,9 +51,7 @@ static FirebasePlugin *firebasePlugin;
     
     NSString* mCustomToken = [command.arguments objectAtIndex:0];
 
-    [[FIRAuth auth] signInWithCustomToken:mCustomToken
-                           completion:^(FIRAuthDataResult * _Nullable authResult,
-                                        NSError * _Nullable error) {
+    [[FIRAuth auth] signInWithCustomToken:mCustomToken completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
         CDVPluginResult *pluginResult;
         if (error){
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
