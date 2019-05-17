@@ -127,15 +127,8 @@
     <framework src="FirebaseRemoteConfig" type="podspec" spec="~> 2.1.3" />
     <framework src="FirebasePerformance" type="podspec" spec="~> 1.1.3" />
     
-    <podspec>
-            <config>
-                <source url="https://github.com/CocoaPods/Specs.git"/>
-            </config>
-            <pods>
-                <pod name="Firebase/Core" spec="~> 6.0.0" />
-                <pod name="Firebase/Database" spec="~> 6.0.0" />
-            </pods>
-    </podspec>
+    <framework src="leveldb" type="podspec" spec="~> 1.18" />
+    <framework src="FirebaseDatabase" type="podspec" spec="~> 4.0" />
 
   </platform>
 </plugin>
