@@ -63,6 +63,13 @@ static FirebasePlugin *firebasePlugin;
 
 }
 
+- (void)setDatabasePersistent:(CDVInvokedUrlCommand *)command {
+    [self.commandDelegate runInBackground:^{
+        BOOL persistent = [command.arguments objectAtIndex:0];
+
+        [FIRDatabase database].persistenceEnabled = persistent;
+    }];
+}
 
 //
 // Notifications
