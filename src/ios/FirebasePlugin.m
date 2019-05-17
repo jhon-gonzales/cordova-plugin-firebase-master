@@ -45,12 +45,13 @@ static FirebasePlugin *firebasePlugin;
 
 - (void)authCustomToken:(CDVInvokedUrlCommand *)command {
 
-    CDVPluginResult *pluginResult;
+    
     NSString* mCustomToken = [command.arguments objectAtIndex:0];
 
     [[FIRAuth auth] signInWithCustomToken:mCustomToken
                            completion:^(FIRAuthDataResult * _Nullable authResult,
                                         NSError * _Nullable error) {
+        CDVPluginResult *pluginResult;
         if (error){
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         }else{
