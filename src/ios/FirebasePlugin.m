@@ -42,10 +42,10 @@ static FirebasePlugin *firebasePlugin;
 //
 // Database Realtime
 //
-/*
+
 - (void)authCustomToken:(CDVInvokedUrlCommand *)command {
 
-    CDVPluginResult* pluginResult = nil;
+    CDVPluginResult *pluginResult;
     NSString* mCustomToken = [command.arguments objectAtIndex:0];
 
     [[FIRAuth auth] signInWithCustomToken:mCustomToken
@@ -59,8 +59,9 @@ static FirebasePlugin *firebasePlugin;
 
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
+
 }
-*/
+
 
 //
 // Notifications
