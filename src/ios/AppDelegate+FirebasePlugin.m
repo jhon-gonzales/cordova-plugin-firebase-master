@@ -1,6 +1,6 @@
 #import "AppDelegate+FirebasePlugin.h"
 #import "FirebasePlugin.h"
-#import "Firebase.h"
+#import "Firebase/Firebase.h"
 @import FirebaseMessaging;
 @import Fabric;
 @import Crashlytics;
