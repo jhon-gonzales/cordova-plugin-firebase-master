@@ -39,4 +39,8 @@
 @property(nonatomic, retain) NSMutableArray *notificationStack;
 @property(nonatomic, readwrite) NSMutableDictionary *traces;
 
+@property (nonatomic) NSString *calificacion;
+@property (nonatomic) NSString *comment;
+@property (nonatomic) NSString *date;
+
 @end
