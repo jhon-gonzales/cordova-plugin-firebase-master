@@ -125,11 +125,11 @@ static FirebasePlugin *firebasePlugin;
                             @"date":date
                             };
 
-    [[[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] child:key] setValue: review withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+     [[[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] child:key] setValue:review withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
         CDVPluginResult *pluginResult;
         if (error) {
             //NSLog(@"Data could not be saved: %@", error);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] messageAsString:@"Data could not be saved: %@", error];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved: %@", error];
         } else {
             //NSLog(@"Data Review saved successfully.");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
@@ -137,6 +137,34 @@ static FirebasePlugin *firebasePlugin;
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
 }
+
+
+- (void)writeReviewsWithComment:(CDVInvokedUrlCommand *)command {
+    NSString *calificacion = [command.arguments objectAtIndex:0];
+    NSString *comment = [command.arguments objectAtIndex:1];
+    NSString *date = [command.arguments objectAtIndex:2];
+    NSString *contractNumber = [command.arguments objectAtIndex:3];
+
+    NSString *key = [[[[[[FIRDatabase database] reference] child:@"reviews"] child:contractNumber] childByAutoId] key];
+    NSDictionary *review = @{
+                            @"calificacion":calificacion,
+                            @"comment":comment,
+                            @"date":date
+                            };
+
+    [[[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] child:key] setValue:review withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        CDVPluginResult *pluginResult;
+        if (error) {
+            //NSLog(@"Data could not be saved: %@", error);
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved: %@", error];
+        } else {
+            //NSLog(@"Data Review saved successfully.");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
+        }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
 
 //
 // Notifications
