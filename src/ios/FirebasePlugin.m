@@ -73,7 +73,7 @@ static FirebasePlugin *firebasePlugin;
 }
 
 
-}
+
 //
 // Notifications
 //
