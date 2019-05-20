@@ -72,7 +72,7 @@ static FirebasePlugin *firebasePlugin;
         [FIRDatabase database].persistenceEnabled = persistent;
     }];
 }
-
+/*
 - (void)writeUsers:(CDVInvokedUrlCommand *)command {
     NSString *key = [[[self.ref child:@"users"] child:[command.arguments objectAtIndex:0]] key];
     NSDictionary *user = @{
@@ -93,7 +93,7 @@ static FirebasePlugin *firebasePlugin;
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
 
-    
+*/
 
 }
 //
