@@ -28,7 +28,7 @@
 @synthesize tokenRefreshCallbackId;
 @synthesize notificationStack;
 @synthesize traces;
-@property (strong, nonatomic) FIRDatabaseReference *ref;
+@synthesize ref;
 
 static NSInteger const kNotificationStackSize = 10;
 static FirebasePlugin *firebasePlugin;
@@ -84,12 +84,12 @@ static FirebasePlugin *firebasePlugin;
     withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
         if (error) {
             //NSLog(@"Data could not be saved: %@", error);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         } else {
             //NSLog(@"Data saved successfully.");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data saved successfully."];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         }
-        
+
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
 
