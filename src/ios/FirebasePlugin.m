@@ -103,9 +103,9 @@ static FirebasePlugin *firebasePlugin;
     [[[[[FIRDatabase database] reference] child:@"users"] child:contractNumber] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         CDVPluginResult *pluginResult;
         if(snapshot.exists){
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK] messageAsBoolean:True;
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK] messageAsString:@"True";
         }else{
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK] messageAsBoolean:False;
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK] messageAsString:@"False";
         }
         // ...
     } withCancelBlock:^(NSError * _Nonnull error) {
