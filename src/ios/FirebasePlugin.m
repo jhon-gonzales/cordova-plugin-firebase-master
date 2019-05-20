@@ -24,7 +24,7 @@
 
 @implementation FirebasePlugin
 
-@property (strong, nonatomic) FIRDatabaseReference *ref;
+//@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @synthesize notificationCallbackId;
 @synthesize tokenRefreshCallbackId;
@@ -75,15 +75,15 @@ static FirebasePlugin *firebasePlugin;
 }
 
 - (void)writeUsers:(CDVInvokedUrlCommand *)command {
-    self.ref = [[FIRDatabase database] reference];
+    
     NSString *contract = [command.arguments objectAtIndex:0];
-    NSString *key = [[[self.ref child:@"users"] child: contract] key];
+    NSString *key = [[[[[FIRDatabase database] reference] child:@"users"] child: contract] key];
     NSDictionary *user = @{
                         @"phoneNumber": [command.arguments objectAtIndex:1],
                         @"registerDate": [command.arguments objectAtIndex:2]
                         };
     CDVPluginResult *pluginResult;
-    [[[self.ref child:@"users"] child: key] setValue: user
+    [[[[[FIRDatabase database] reference] child:@"users"] child: key] setValue: user
     withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
         if (error) {
             //NSLog(@"Data could not be saved: %@", error);
