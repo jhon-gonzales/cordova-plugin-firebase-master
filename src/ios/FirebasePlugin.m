@@ -42,7 +42,6 @@ static FirebasePlugin *firebasePlugin;
     NSLog(@"FirebasePlugin - Starting Firebase plugin");
     firebasePlugin = self;
     
-    self.ref = [[FIRDatabase database] reference];
 }
 
 //
@@ -76,6 +75,7 @@ static FirebasePlugin *firebasePlugin;
 }
 
 - (void)writeUsers:(CDVInvokedUrlCommand *)command {
+    self.ref = [[FIRDatabase database] reference];
     NSString *contract = [command.arguments objectAtIndex:0];
     NSString *key = [[[self.ref child:@"users"] child: contract] key];
     NSDictionary *user = @{
