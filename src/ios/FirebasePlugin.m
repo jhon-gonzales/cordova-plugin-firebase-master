@@ -73,7 +73,7 @@ static FirebasePlugin *firebasePlugin;
     }];
 }
 
-- (void)writeReviews:(CDVInvokedUrlCommand *)command {
+- (void)writeUsers:(CDVInvokedUrlCommand *)command {
     NSString *key = [[[self.ref child:@"users"] child: command.arguments objectAtIndex:0] key];
     NSDictionary *user = @{
                         @"phoneNumber": command.arguments objectAtIndex:1,
@@ -89,6 +89,8 @@ static FirebasePlugin *firebasePlugin;
             //NSLog(@"Data saved successfully.");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data saved successfully."];
         }
+        
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
 
     
