@@ -75,7 +75,7 @@ static FirebasePlugin *firebasePlugin;
 }
 
 - (void)writeUsers:(CDVInvokedUrlCommand *)command {
-    CDVPluginResult *pluginResult;
+    
     NSString *contract = [command.arguments objectAtIndex:2];
     NSString *key = [[[[[FIRDatabase database] reference] child:@"users"] child: contract] key];
     NSDictionary *user = @{
@@ -84,6 +84,7 @@ static FirebasePlugin *firebasePlugin;
                         };
     
     [[[[[FIRDatabase database] reference] child:@"users"] child:key] setValue:user withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        CDVPluginResult *pluginResult;
         if (error) {
             //NSLog(@"Data could not be saved: %@", error);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
