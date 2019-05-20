@@ -28,7 +28,7 @@
 @synthesize tokenRefreshCallbackId;
 @synthesize notificationStack;
 @synthesize traces;
-@synthesize ref;
+//@synthesize ref;
 
 static NSInteger const kNotificationStackSize = 10;
 static FirebasePlugin *firebasePlugin;
