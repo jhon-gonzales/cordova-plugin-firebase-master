@@ -24,6 +24,8 @@
 
 @implementation FirebasePlugin
 
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+
 @synthesize notificationCallbackId;
 @synthesize tokenRefreshCallbackId;
 @synthesize notificationStack;
@@ -72,7 +74,25 @@ static FirebasePlugin *firebasePlugin;
     }];
 }
 
+- (void)writeUsers:(CDVInvokedUrlCommand *)command {
+    NSString *key = [[[self.ref child:@"users"] child:[command.arguments objectAtIndex:0]] key];
+    NSDictionary *user = @{
+                        @"phoneNumber": [command.arguments objectAtIndex:1],
+                        @"registerDate": [command.arguments objectAtIndex:2]
+                        };
+    CDVPluginResult *pluginResult;
+    [[[self.ref child:@"users"] child: key] setValue: user
+    withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        if (error) {
+            //NSLog(@"Data could not be saved: %@", error);
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        } else {
+            //NSLog(@"Data saved successfully.");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        }
 
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
 
 //
 // Notifications
