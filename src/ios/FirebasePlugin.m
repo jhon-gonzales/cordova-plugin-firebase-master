@@ -107,12 +107,11 @@ static FirebasePlugin *firebasePlugin;
         }else{
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK] messageAsString:@"False";
         }
-        // ...
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } withCancelBlock:^(NSError * _Nonnull error) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    ];
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+
+    }];
 }
 
 //
