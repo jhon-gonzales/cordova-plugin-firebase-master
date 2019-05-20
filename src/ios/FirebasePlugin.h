@@ -34,11 +34,9 @@
 - (void)clearAllNotifications:(CDVInvokedUrlCommand *)command;
 - (void)authCustomToken:(CDVInvokedUrlCommand *)command;
 - (void)setDatabasePersistent:(CDVInvokedUrlCommand*)command;
-//- (void)writeUsers:(CDVInvokedUrlCommand*)command;
 @property(nonatomic, copy) NSString *notificationCallbackId;
 @property(nonatomic, copy) NSString *tokenRefreshCallbackId;
 @property(nonatomic, retain) NSMutableArray *notificationStack;
 @property(nonatomic, readwrite) NSMutableDictionary *traces;
-//@property(strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
