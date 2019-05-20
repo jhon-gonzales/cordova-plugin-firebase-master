@@ -7,9 +7,9 @@
 @import FirebaseInstanceID;
 @import FirebaseAnalytics;
 @import FirebaseRemoteConfig;
-@import FirebaseCore;
+//@import FirebaseCore;
 @import FirebaseAuth;
-@import FirebaseDatabase;
+//@import FirebaseDatabase;
 
 #import <objc/runtime.h>
 
@@ -53,13 +53,13 @@
 - (NSNumber *)applicationInBackground {
     return objc_getAssociatedObject(self, kApplicationInBackgroundKey);
 }
-
+/*
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     [self application:application didFinishLaunchingWithOptions:launchOptions];
     [FIRApp configure];
     return YES;
 }
-
+*/
 - (BOOL)application:(UIApplication *)application swizzledDidFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     NSLog(@"FirebasePlugin - Finished launching");
     [self application:application swizzledDidFinishLaunchingWithOptions:launchOptions];
