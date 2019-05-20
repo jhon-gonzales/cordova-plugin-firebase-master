@@ -129,7 +129,7 @@ static FirebasePlugin *firebasePlugin;
         CDVPluginResult *pluginResult;
         if (error) {
             //NSLog(@"Data could not be saved: %@", error);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved: %@"];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved: %@", error.localizedFailureReason];
         } else {
             //NSLog(@"Data Review saved successfully.");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
