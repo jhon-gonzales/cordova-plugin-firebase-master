@@ -97,6 +97,24 @@ static FirebasePlugin *firebasePlugin;
     }];
 }
 
+- (void)userExist:(CDVInvokedUrlCommand *)command {
+    NSString *contractNumber = [command.arguments objectAtIndex:0];
+
+    [[[[[FIRDatabase database] reference] child:@"users"] child:contractNumber] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        CDVPluginResult *pluginResult;
+        if(snapshot.exists){
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK] messageAsBoolean:True;
+        }else{
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK] messageAsBoolean:False;
+        }
+        // ...
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    ];
+}
+
 //
 // Notifications
 //
