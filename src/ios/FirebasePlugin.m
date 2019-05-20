@@ -41,7 +41,8 @@ static FirebasePlugin *firebasePlugin;
 - (void)pluginInitialize {
     NSLog(@"FirebasePlugin - Starting Firebase plugin");
     firebasePlugin = self;
-
+    
+    self.ref = [[FIRDatabase database] reference];
 }
 
 //
