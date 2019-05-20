@@ -28,6 +28,7 @@
 @synthesize tokenRefreshCallbackId;
 @synthesize notificationStack;
 @synthesize traces;
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 static NSInteger const kNotificationStackSize = 10;
 static FirebasePlugin *firebasePlugin;
@@ -72,6 +73,27 @@ static FirebasePlugin *firebasePlugin;
     }];
 }
 
+- (void)writeReviews:(CDVInvokedUrlCommand *)command {
+    NSString *key = [[[self.ref child:@"users"] child: command.arguments objectAtIndex:0] key];
+    NSDictionary *user = @{
+                        @"phoneNumber": command.arguments objectAtIndex:1,
+                        @"registerDate": command.arguments objectAtIndex:2
+                        };
+    CDVPluginResult *pluginResult;
+    [[[self.ref child:@"users"] child: key] setValue: user
+    withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        if (error) {
+            //NSLog(@"Data could not be saved: %@", error);
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error];
+        } else {
+            //NSLog(@"Data saved successfully.");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data saved successfully."];
+        }
+    }];
+
+    
+
+}
 //
 // Notifications
 //
