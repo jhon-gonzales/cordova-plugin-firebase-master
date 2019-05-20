@@ -74,7 +74,7 @@ static FirebasePlugin *firebasePlugin;
 }
 
 - (void)writeUsers:(CDVInvokedUrlCommand *)command {
-    NSString *key = [[[self.ref child:@"users"] child: [command.arguments objectAtIndex:0]] key];
+    NSString *key = [[[self.ref child:@"users"] child:[command.arguments objectAtIndex:0]] key];
     NSDictionary *user = @{
                         @"phoneNumber": [command.arguments objectAtIndex:1],
                         @"registerDate": [command.arguments objectAtIndex:2]
