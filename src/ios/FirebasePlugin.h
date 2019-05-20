@@ -39,6 +39,6 @@
 @property(nonatomic, copy) NSString *tokenRefreshCallbackId;
 @property(nonatomic, retain) NSMutableArray *notificationStack;
 @property(nonatomic, readwrite) NSMutableDictionary *traces;
-
+@property(strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
