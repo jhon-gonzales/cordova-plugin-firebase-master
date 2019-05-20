@@ -36,6 +36,7 @@
 - (void)setDatabasePersistent:(CDVInvokedUrlCommand*)command;
 - (void)writeUsers:(CDVInvokedUrlCommand*)command;
 - (void)userExist:(CDVInvokedUrlCommand*)command;
+- (void)writeReviews:(CDVInvokedUrlCommand*)command;
 @property(nonatomic, copy) NSString *notificationCallbackId;
 @property(nonatomic, copy) NSString *tokenRefreshCallbackId;
 @property(nonatomic, retain) NSMutableArray *notificationStack;
