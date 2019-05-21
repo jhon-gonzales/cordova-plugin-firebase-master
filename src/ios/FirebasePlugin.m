@@ -165,6 +165,22 @@ static FirebasePlugin *firebasePlugin;
     }];
 }
 
+- (void)writeDate:(CDVInvokedUrlCommand *)command {
+    NSString *date = [command.arguments objectAtIndex:0];
+    NSString *contractNumber = [command.arguments objectAtIndex:1];
+    [[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] setValue:date withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        CDVPluginResult *pluginResult;
+        if (error) {
+            //NSLog(@"Data could not be saved: %@", error);
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
+        } else {
+            //NSLog(@"Data Review saved successfully.");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
+        }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
 
 //
 // Notifications
