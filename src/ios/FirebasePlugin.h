@@ -38,7 +38,7 @@
 - (void)userExist:(CDVInvokedUrlCommand*)command;
 - (void)writeReviews:(CDVInvokedUrlCommand*)command;
 - (void)writeReviewsWithComment:(CDVInvokedUrlCommand*)command;
-
+- (void)writeDate:(CDVInvokedUrlCommand*)command;
 @property(nonatomic, copy) NSString *notificationCallbackId;
 @property(nonatomic, copy) NSString *tokenRefreshCallbackId;
 @property(nonatomic, retain) NSMutableArray *notificationStack;
