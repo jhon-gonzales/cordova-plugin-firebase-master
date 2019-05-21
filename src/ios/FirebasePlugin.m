@@ -129,7 +129,7 @@ static FirebasePlugin *firebasePlugin;
         CDVPluginResult *pluginResult;
         if (error) {
             //NSLog(@"Data could not be saved: %@", error);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved: %@", [error localizedFailureReason]];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
         } else {
             //NSLog(@"Data Review saved successfully.");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
@@ -138,7 +138,7 @@ static FirebasePlugin *firebasePlugin;
     }];
 }
 
-/*
+
 - (void)writeReviewsWithComment:(CDVInvokedUrlCommand *)command {
     NSString *calificacion = [command.arguments objectAtIndex:0];
     NSString *comment = [command.arguments objectAtIndex:1];
@@ -156,7 +156,7 @@ static FirebasePlugin *firebasePlugin;
         CDVPluginResult *pluginResult;
         if (error) {
             //NSLog(@"Data could not be saved: %@", error);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved: %@", error];
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
         } else {
             //NSLog(@"Data Review saved successfully.");
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
@@ -164,7 +164,7 @@ static FirebasePlugin *firebasePlugin;
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
 }
-*/
+
 
 //
 // Notifications
