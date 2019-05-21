@@ -1158,7 +1158,7 @@ public void writeReviewsWithComment(final CallbackContext callbackContext, Strin
 
 public void userExist(final CallbackContext callbackContext, final String contractnumber){
     
-    final ArrayList<String> isOnFirebase = new ArrayList<String>();
+    //final ArrayList<String> isOnFirebase = new ArrayList<String>();
     DatabaseReference mDatabase;
       mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
       mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1166,15 +1166,15 @@ public void userExist(final CallbackContext callbackContext, final String contra
         public void onDataChange(DataSnapshot dataSnapshot) {
           
             if (dataSnapshot.exists()) {
-              isOnFirebase.add("true"); 
-              Log.i(TAG, String.valueOf(isOnFirebase.size()));
-              callbackContext.success(isOnFirebase.size()); //isOnFirebase 1 = true
+              //isOnFirebase.add("true"); 
+              //Log.i(TAG, String.valueOf(isOnFirebase.size()));
+              callbackContext.success("True"); //isOnFirebase 1 = true - isOnFirebase.size()
                 
             } else {
-              Log.i(TAG, String.valueOf(isOnFirebase.size()));
-              callbackContext.success(isOnFirebase.size()); // isOnFirebase 0 = false
+              //Log.i(TAG, String.valueOf(isOnFirebase.size()));
+              callbackContext.success("False"); // isOnFirebase 0 = false - isOnFirebase.size()
             }
-            isOnFirebase.clear();
+            //isOnFirebase.clear();
         }
 
         @Override
