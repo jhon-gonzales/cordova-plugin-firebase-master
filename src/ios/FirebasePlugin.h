@@ -33,13 +33,14 @@
 - (void)setAnalyticsCollectionEnabled:(CDVInvokedUrlCommand *)command;
 - (void)clearAllNotifications:(CDVInvokedUrlCommand *)command;
 - (void)authCustomToken:(CDVInvokedUrlCommand *)command;
-- (void)setDatabasePersistent:(CDVInvokedUrlCommand*)command;
+- (void)signOut:(CDVInvokedUrlCommand*)command;
 - (void)writeUsers:(CDVInvokedUrlCommand*)command;
-- (void)userExist:(CDVInvokedUrlCommand*)command;
+- (void)writeDate:(CDVInvokedUrlCommand*)command;
 - (void)writeReviews:(CDVInvokedUrlCommand*)command;
 - (void)writeReviewsWithComment:(CDVInvokedUrlCommand*)command;
-- (void)writeDate:(CDVInvokedUrlCommand*)command;
-- (void)signOut:(CDVInvokedUrlCommand*)command;
+- (void)userExist:(CDVInvokedUrlCommand*)command;
+//- (void)setDatabasePersistent:(CDVInvokedUrlCommand*)command;
+
 @property(nonatomic, copy) NSString *notificationCallbackId;
 @property(nonatomic, copy) NSString *tokenRefreshCallbackId;
 @property(nonatomic, retain) NSMutableArray *notificationStack;
