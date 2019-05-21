@@ -44,152 +44,6 @@ static FirebasePlugin *firebasePlugin;
     
 }
 
-//
-// Database Realtime
-//
-
-- (void)authCustomToken:(CDVInvokedUrlCommand *)command {
-
-    
-    NSString* mCustomToken = [command.arguments objectAtIndex:0];
-
-    [[FIRAuth auth] signInWithCustomToken:mCustomToken completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
-        CDVPluginResult *pluginResult;
-        if (error){
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        }else{
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        }
-
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
-
-}
-
-- (void)setDatabasePersistent:(CDVInvokedUrlCommand *)command {
-    [self.commandDelegate runInBackground:^{
-        BOOL persistent = [command.arguments objectAtIndex:0];
-
-        [FIRDatabase database].persistenceEnabled = persistent;
-    }];
-}
-
-- (void)writeUsers:(CDVInvokedUrlCommand *)command {
-    
-    NSString *contract = [command.arguments objectAtIndex:2];
-    NSString *key = [[[[[FIRDatabase database] reference] child:@"users"] child: contract] key];
-    NSDictionary *user = @{
-                        @"phoneNumber": [command.arguments objectAtIndex:0],
-                        @"registerDate": [command.arguments objectAtIndex:1]
-                        };
-    
-    [[[[[FIRDatabase database] reference] child:@"users"] child:key] setValue:user withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-        CDVPluginResult *pluginResult;
-        if (error) {
-            //NSLog(@"Data could not be saved: %@", error);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        } else {
-            //NSLog(@"Data saved successfully.");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        }
-
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
-}
-
-- (void)userExist:(CDVInvokedUrlCommand *)command {
-    NSString *contractNumber = [command.arguments objectAtIndex:0];
-
-    [[[[[FIRDatabase database] reference] child:@"users"] child:contractNumber] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        CDVPluginResult *pluginResult;
-        if(snapshot.exists){
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"True"];
-        }else{
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"False"];
-        }
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    } withCancelBlock:^(NSError * _Nonnull error) {
-        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
-}
-
-- (void)writeReviews:(CDVInvokedUrlCommand *)command {
-    NSString *calificacion = [command.arguments objectAtIndex:0];
-    NSString *date = [command.arguments objectAtIndex:1];
-    NSString *contractNumber = [command.arguments objectAtIndex:2];
-
-    NSString *key = [[[[[[FIRDatabase database] reference] child:@"reviews"] child:contractNumber] childByAutoId] key];
-    NSDictionary *review = @{
-                            @"calificacion":calificacion,
-                            @"date":date
-                            };
-
-     [[[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] child:key] setValue:review withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-        CDVPluginResult *pluginResult;
-        if (error) {
-            //NSLog(@"Data could not be saved: %@", error);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
-        } else {
-            //NSLog(@"Data Review saved successfully.");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
-        }
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
-}
-
-
-- (void)writeReviewsWithComment:(CDVInvokedUrlCommand *)command {
-    NSString *calificacion = [command.arguments objectAtIndex:0];
-    NSString *comment = [command.arguments objectAtIndex:1];
-    NSString *date = [command.arguments objectAtIndex:2];
-    NSString *contractNumber = [command.arguments objectAtIndex:3];
-
-    NSString *key = [[[[[[FIRDatabase database] reference] child:@"reviews"] child:contractNumber] childByAutoId] key];
-    NSDictionary *review = @{
-                            @"calificacion":calificacion,
-                            @"comment":comment,
-                            @"date":date
-                            };
-
-    [[[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] child:key] setValue:review withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-        CDVPluginResult *pluginResult;
-        if (error) {
-            //NSLog(@"Data could not be saved: %@", error);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
-        } else {
-            //NSLog(@"Data Review saved successfully.");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
-        }
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
-}
-
-- (void)writeDate:(CDVInvokedUrlCommand *)command {
-    NSString *date = [command.arguments objectAtIndex:0];
-    NSString *contractNumber = [command.arguments objectAtIndex:1];
-    [[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] setValue:date withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-        CDVPluginResult *pluginResult;
-        if (error) {
-            //NSLog(@"Data could not be saved: %@", error);
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
-        } else {
-            //NSLog(@"Data Review saved successfully.");
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
-        }
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
-}
-
-- (void)signOut:(CDVInvokedUrlCommand *)command {
-        NSError *signOutError;
-        BOOL status = [[FIRAuth auth] signOut:&signOutError];
-        if (!status) {
-        //NSLog(@"Error signing out: %@", signOutError);
-        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error signing out"];
-        }
-}
-
 
 //
 // Notifications
@@ -584,4 +438,139 @@ static FirebasePlugin *firebasePlugin;
      }];
 }
 
+//
+// Authentication
+//
+
+- (void)authCustomToken:(CDVInvokedUrlCommand *)command {
+    NSString* mCustomToken = [command.arguments objectAtIndex:0];
+
+    [[FIRAuth auth] signInWithCustomToken:mCustomToken completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
+        CDVPluginResult *pluginResult;
+        if (error){
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Authentication failed."];
+        }else{
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Authentication successful."];
+        }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
+- (void)signOut:(CDVInvokedUrlCommand *)command {
+        NSError *signOutError;
+        BOOL status = [[FIRAuth auth] signOut:&signOutError];
+        if (!status) {
+        //NSLog(@"Error signing out: %@", signOutError);
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error signing out"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }
+}
+
+
+//
+// Database Realtime
+//
+
+- (void)writeUsers:(CDVInvokedUrlCommand *)command {
+    NSString *phoneNumber = [command.arguments objectAtIndex:0];
+    NSString *registerDate = [command.arguments objectAtIndex:1];
+    NSString *contractNumber = [command.arguments objectAtIndex:2];
+    NSString *key = [[[[[FIRDatabase database] reference] child:@"users"] child:contractNumber] key];
+    NSDictionary *user = @{
+                        @"phoneNumber": phoneNumber,
+                        @"registerDate": registerDate
+                        };
+    [[[[[FIRDatabase database] reference] child:@"users"] child:key] setValue:user withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        CDVPluginResult *pluginResult;
+        if (error) {
+            //NSLog(@"Data could not be saved: %@", error);
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
+        } else {
+            //NSLog(@"Data saved successfully.");
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data saved successfully."];
+        }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
+- (void)writeDate:(CDVInvokedUrlCommand *)command {
+    NSString *date = [command.arguments objectAtIndex:0];
+    NSString *contractNumber = [command.arguments objectAtIndex:1];
+    [[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] setValue:date withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        CDVPluginResult *pluginResult;
+        if (error) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
+        }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
+- (void)writeReviews:(CDVInvokedUrlCommand *)command {
+    NSString *calificacion = [command.arguments objectAtIndex:0];
+    NSString *date = [command.arguments objectAtIndex:1];
+    NSString *contractNumber = [command.arguments objectAtIndex:2];
+    NSString *key = [[[[[[FIRDatabase database] reference] child:@"reviews"] child:contractNumber] childByAutoId] key];
+    NSDictionary *review = @{
+                            @"calificacion":calificacion,
+                            @"date":date
+                            };
+     [[[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] child:key] setValue:review withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        CDVPluginResult *pluginResult;
+        if (error) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
+        }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
+- (void)writeReviewsWithComment:(CDVInvokedUrlCommand *)command {
+    NSString *calificacion = [command.arguments objectAtIndex:0];
+    NSString *comment = [command.arguments objectAtIndex:1];
+    NSString *date = [command.arguments objectAtIndex:2];
+    NSString *contractNumber = [command.arguments objectAtIndex:3];
+    NSString *key = [[[[[[FIRDatabase database] reference] child:@"reviews"] child:contractNumber] childByAutoId] key];
+    NSDictionary *review = @{
+                            @"calificacion":calificacion,
+                            @"comment":comment,
+                            @"date":date
+                            };
+    [[[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] child:key] setValue:review withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        CDVPluginResult *pluginResult;
+        if (error) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Data could not be saved."];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Data Review saved successfully."];
+        }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
+- (void)userExist:(CDVInvokedUrlCommand *)command {
+    NSString *contractNumber = [command.arguments objectAtIndex:0];
+    [[[[[FIRDatabase database] reference] child:@"users"] child:contractNumber] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        CDVPluginResult *pluginResult;
+        if(snapshot.exists){
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"True"];
+        }else{
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"False"];
+        }
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error getting result."];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
+}
+
+/*
+- (void)setDatabasePersistent:(CDVInvokedUrlCommand *)command {
+    [self.commandDelegate runInBackground:^{
+        BOOL persistent = [command.arguments objectAtIndex:0];
+        [FIRDatabase database].persistenceEnabled = persistent;
+    }];
+}
+*/
 @end
