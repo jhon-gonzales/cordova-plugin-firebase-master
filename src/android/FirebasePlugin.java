@@ -240,207 +240,6 @@ public class FirebasePlugin extends CordovaPlugin {
     return false;
   }
 
-  public void validateLastUserReview(final CallbackContext callbackContext, String contractnumber){
-      final ArrayList<Review> lastReview = new ArrayList<Review>();
-      DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
-
-      mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-          
-            if (dataSnapshot.exists()) {
-              int orderOfReview = 0;
-              for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                lastReview.add(postSnapshot.getValue(Review.class));
-              }
-              if (lastReview.size() == 0){
-                callbackContext.success("false");
-              }else{
-                  for (Review userReview : lastReview){
-                  if (orderOfReview == lastReview.size() - 1){
-                    callbackContext.success(userReview.getCalificacion());
-                  }else{
-                    orderOfReview++;
-                  }
-                }
-              }  
-          //****************************************
-            }else{
-              callbackContext.success("false");
-            }
-            lastReview.clear();
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            callbackContext.error(databaseError.getMessage());
-        }
-    });
-  }
-
-
-
-public void userExist(final CallbackContext callbackContext, final String contractnumber){
-    
-    final ArrayList<String> isOnFirebase = new ArrayList<String>();
-    DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
-      mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-          
-            if (dataSnapshot.exists()) {
-              isOnFirebase.add("true"); 
-              Log.i(TAG, String.valueOf(isOnFirebase.size()));
-              callbackContext.success(isOnFirebase.size()); //isOnFirebase 1 = true
-                
-            } else {
-              Log.i(TAG, String.valueOf(isOnFirebase.size()));
-              callbackContext.success(isOnFirebase.size()); // isOnFirebase 0 = false
-            }
-            isOnFirebase.clear();
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            //Log.e(TAG, databaseError.toString());
-            //throw databaseError.toException();
-            //callbackContext.error(databaseError.toString());
-            callbackContext.error(databaseError.getMessage());
-        }
-    });   
-  }
-
-
-
-  public void writeUsers(final CallbackContext callbackContext, String phoneNumber, String registerDate, String contractnumber){
-    try{
-      DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
-      Users users = new Users(phoneNumber, registerDate);
-      mDatabase.setValue(users, new DatabaseReference.CompletionListener(){
-        @Override
-        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference){
-          if (databaseError != null){
-                System.out.println("Data could not be saved " + databaseError.getMessage());
-                callbackContext.error("Data could not be saved ");
-          }else{
-                System.out.println("Data saved successfully.");
-                callbackContext.success();
-          }
-        }
-      });
-
-    }catch(Exception e){
-          Log.e("error",e.getMessage());
-          callbackContext.error(e.getMessage());
-
-    }
-  }
-
-  public void writeReviews(final CallbackContext callbackContext, String calificacion, String date,String contractnumber) {    
-        try {  
-          DatabaseReference mDatabase;
-          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
-          Review reviews = new Review(calificacion, date);
-          mDatabase.push().setValue(reviews, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-              if (databaseError != null) {
-                System.out.println("Data could not be saved " + databaseError.getMessage());
-                callbackContext.error("Data could not be saved ");
-              } else {
-                System.out.println("Data saved successfully.");
-                callbackContext.success();
-              }
-            }
-          });
-          
-        } catch (Exception e) {
-          Log.e("error",e.getMessage());
-          callbackContext.error(e.getMessage());
-        }    
-  }
-///New
-
-public void writeDate(final CallbackContext callbackContext, String date, String contractnumber) {    
-        try {  
-          DatabaseReference mDatabase;
-          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
-          mDatabase.setValue(date, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-              if (databaseError != null) {
-                System.out.println("Data could not be saved " + databaseError.getMessage());
-                callbackContext.error("Data could not be saved ");
-              } else {
-                System.out.println("Data saved successfully.");
-                callbackContext.success();
-              }
-            }
-          });
-          
-        } catch (Exception e) {
-          Log.e("error",e.getMessage());
-          callbackContext.error(e.getMessage());
-        }   
-  }
-
-
-  public void writeReviewsWithComment(final CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
-        try { 
-          DatabaseReference mDatabase;
-          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
-          Review reviews = new Review(calificacion, comment, date);
-          mDatabase.push().setValue(reviews, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-              if (databaseError != null) {
-                System.out.println("Data could not be saved " + databaseError.getMessage());
-                callbackContext.error("Data could not be saved ");
-              } else {
-                System.out.println("Data saved successfully.");
-                callbackContext.success();
-              }
-            }
-          });
-          
-        } catch (Exception e) {
-          Log.e("error",e.getMessage());
-          callbackContext.error(e.getMessage());
-        }   
-  }
-
-  public void signOut(CallbackContext callbackContext){
-
-    try {
-          mAuth.getInstance().signOut();
-          callbackContext.success();
-        } catch (Exception e) {
-          callbackContext.error(e.getMessage());
-        }
-  }
-
-  public void authCustomToken(final CallbackContext callbackContext,String mCustomToken){
-    //FirebaseAuth mAuth= FirebaseAuth.getInstance();
-    mAuth.signInWithCustomToken(mCustomToken)
-          .addOnCompleteListener(this.cordova.getActivity(), new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("authCustomToken", "signInWithCustomToken:success");
-                        callbackContext.success("signInWithCustomToken:success");
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w("authCustomToken", "signInWithCustomToken:failure", task.getException());
-                        callbackContext.error(task.getException()+"");
-                        //updateUI(null);
-                    }
-                }
-            });
-  }
 
   @Override
   public void onPause(boolean multitasking) {
@@ -1220,4 +1019,211 @@ public void writeDate(final CallbackContext callbackContext, String date, String
     }
     return map;
   }
+
+
+  /////////////////////
+  // Authentication //
+  ////////////////////
+
+  public void authCustomToken(final CallbackContext callbackContext,String mCustomToken){
+    //FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    mAuth.signInWithCustomToken(mCustomToken)
+          .addOnCompleteListener(this.cordova.getActivity(), new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.d("authCustomToken", "signInWithCustomToken:success");
+                        callbackContext.success("signInWithCustomToken:success");
+                    } else {
+                        Log.w("authCustomToken", "signInWithCustomToken:failure", task.getException());
+                        callbackContext.error(task.getException()+"");
+                    }
+                }
+            });
+  }
+
+  public void signOut(CallbackContext callbackContext){
+    try {
+          mAuth.getInstance().signOut();
+          callbackContext.success();
+        } catch (Exception e) {
+          callbackContext.error(e.getMessage());
+        }
+  }
+
+
+  ////////////////////////
+  // Database Realtime //
+  ///////////////////////
+
+
+public void writeUsers(final CallbackContext callbackContext, String phoneNumber, String registerDate, String contractnumber){
+    try{
+      DatabaseReference mDatabase;
+      mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
+      Users users = new Users(phoneNumber, registerDate);
+      mDatabase.setValue(users, new DatabaseReference.CompletionListener(){
+        @Override
+        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference){
+          if (databaseError != null){
+                System.out.println("Data could not be saved " + databaseError.getMessage());
+                callbackContext.error("Data could not be saved " + databaseError.getMessage());
+          }else{
+                System.out.println("Data saved successfully.");
+                callbackContext.success();
+                }
+            }
+      });
+
+    }catch(Exception e){
+          Log.e("error",e.getMessage());
+          callbackContext.error(e.getMessage());
+    }
+  }
+
+
+public void writeDate(final CallbackContext callbackContext, String date, String contractnumber) {    
+        try {  
+          DatabaseReference mDatabase;
+          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
+          mDatabase.setValue(date, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+              if (databaseError != null) {
+                System.out.println("Data could not be saved " + databaseError.getMessage());
+                callbackContext.error("Data could not be saved " + databaseError.getMessage());
+              } else {
+                System.out.println("Data saved successfully.");
+                callbackContext.success();
+              }
+            }
+          });
+          
+        } catch (Exception e) {
+          Log.e("error",e.getMessage());
+          callbackContext.error(e.getMessage());
+        }   
+  }
+
+
+public void writeReviews(final CallbackContext callbackContext, String calificacion, String date,String contractnumber) {    
+        try {  
+          DatabaseReference mDatabase;
+          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
+          Review reviews = new Review(calificacion, date);
+          mDatabase.push().setValue(reviews, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+              if (databaseError != null) {
+                System.out.println("Data could not be saved " + databaseError.getMessage());
+                callbackContext.error("Data could not be saved " + databaseError.getMessage());
+              } else {
+                System.out.println("Data saved successfully.");
+                callbackContext.success();
+              }
+            }
+          });
+          
+        } catch (Exception e) {
+          Log.e("error",e.getMessage());
+          callbackContext.error(e.getMessage());
+        }    
+  }
+
+
+public void writeReviewsWithComment(final CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
+        try { 
+          DatabaseReference mDatabase;
+          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
+          Review reviews = new Review(calificacion, comment, date);
+          mDatabase.push().setValue(reviews, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+              if (databaseError != null) {
+                System.out.println("Data could not be saved " + databaseError.getMessage());
+                callbackContext.error("Data could not be saved " + databaseError.getMessage());
+              } else {
+                System.out.println("Data saved successfully.");
+                callbackContext.success();
+              }
+            }
+          });
+          
+        } catch (Exception e) {
+          Log.e("error",e.getMessage());
+          callbackContext.error(e.getMessage());
+        }   
+  }
+
+
+public void userExist(final CallbackContext callbackContext, final String contractnumber){
+    
+    final ArrayList<String> isOnFirebase = new ArrayList<String>();
+    DatabaseReference mDatabase;
+      mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
+      mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+          
+            if (dataSnapshot.exists()) {
+              isOnFirebase.add("true"); 
+              Log.i(TAG, String.valueOf(isOnFirebase.size()));
+              callbackContext.success(isOnFirebase.size()); //isOnFirebase 1 = true
+                
+            } else {
+              Log.i(TAG, String.valueOf(isOnFirebase.size()));
+              callbackContext.success(isOnFirebase.size()); // isOnFirebase 0 = false
+            }
+            isOnFirebase.clear();
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            //Log.e(TAG, databaseError.toString());
+            //throw databaseError.toException();
+            //callbackContext.error(databaseError.toString());
+            callbackContext.error(databaseError.getMessage());
+        }
+    });   
+  }
+
+
+public void validateLastUserReview(final CallbackContext callbackContext, String contractnumber){
+      final ArrayList<Review> lastReview = new ArrayList<Review>();
+      DatabaseReference mDatabase;
+      mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
+
+      mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+          
+            if (dataSnapshot.exists()) {
+              int orderOfReview = 0;
+              for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                lastReview.add(postSnapshot.getValue(Review.class));
+              }
+              if (lastReview.size() == 0){
+                callbackContext.success("false");
+              }else{
+                  for (Review userReview : lastReview){
+                  if (orderOfReview == lastReview.size() - 1){
+                    callbackContext.success(userReview.getCalificacion());
+                  }else{
+                    orderOfReview++;
+                  }
+                }
+              }  
+          //****************************************
+            }else{
+              callbackContext.success("false");
+            }
+            lastReview.clear();
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            callbackContext.error(databaseError.getMessage());
+        }
+    });
+  }
+
 }
