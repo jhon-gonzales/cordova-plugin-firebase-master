@@ -186,7 +186,7 @@ static FirebasePlugin *firebasePlugin;
         BOOL status = [[FIRAuth auth] signOut:&signOutError];
         if (!status) {
         //NSLog(@"Error signing out: %@", signOutError);
-        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error signing out: %@", signOutError];
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error signing out"];
         }
 }
 
