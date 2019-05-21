@@ -181,6 +181,15 @@ static FirebasePlugin *firebasePlugin;
     }];
 }
 
+- (void)signOut:(CDVInvokedUrlCommand *)command {
+        NSError *signOutError;
+        BOOL status = [[FIRAuth auth] signOut:&signOutError];
+        if (!status) {
+        //NSLog(@"Error signing out: %@", signOutError);
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error signing out: %@", signOutError];
+        }
+}
+
 
 //
 // Notifications
