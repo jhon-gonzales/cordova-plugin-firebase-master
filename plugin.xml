@@ -67,6 +67,17 @@
       <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="@string/default_notification_channel_id"/>
     </config-file>
 
+    <!-- configure icon notification-->
+    <resource-file src="res/native/android/res/drawable-hdpi/entel_icon.png" target="app/src/main/res/drawable-hdpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-ldpi/entel_icon.png" target="app/src/main/res/drawable-ldpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-mdpi/entel_icon.png" target="app/src/main/res/drawable-mdpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-xhdpi/entel_icon.png" target="app/src/main/res/drawable-xhdpi/entel_icon.png"/>
+
+    <!-- Configure Firebase -->
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/entel_icon" />
+        </config-file>
+
     <resource-file src="google-services.json" target="./google-services.json" />
     <resource-file src="src/android/cordova-plugin-firebase-strings.xml" target="res/values/cordova-plugin-firebase-strings.xml" />
 
