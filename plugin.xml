@@ -67,7 +67,7 @@
       <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="@string/default_notification_channel_id"/>
     </config-file>
 
-    <!--
+    
     <widget id="cordova-plugin-firebase" version="0.2.0" xmlns:android="http://schemas.android.com/apk/res/android">
     
     <resource-file src="res/native/android/res/drawable-hdpi/entel_icon.png" target="app/src/main/res/drawable-hdpi/entel_icon.png"/>
@@ -80,7 +80,7 @@
             <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/entel_icon" />
         </config-file>
     </widget>
-    -->
+    
 
     <resource-file src="google-services.json" target="./google-services.json" />
     <resource-file src="src/android/cordova-plugin-firebase-strings.xml" target="res/values/cordova-plugin-firebase-strings.xml" />
