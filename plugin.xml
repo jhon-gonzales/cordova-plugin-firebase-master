@@ -70,10 +70,10 @@
     
   
     
-    <resource-file src="res/native/android/res/drawable-hdpi/entel_icon.png" target="res/native/android/res/drawable-hdpi/entel_icon.png"/>
-    <resource-file src="res/native/android/res/drawable-ldpi/entel_icon.png" target="res/native/android/res/drawable-ldpi/entel_icon.png"/>
-    <resource-file src="res/native/android/res/drawable-mdpi/entel_icon.png" target="res/native/android/res/drawable-mdpi/entel_icon.png"/>
-    <resource-file src="res/native/android/res/drawable-xhdpi/entel_icon.png" target="res/native/android/res/drawable-xhdpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-hdpi/entel_icon.png" target="res/drawable-hdpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-ldpi/entel_icon.png" target="res/drawable-ldpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-mdpi/entel_icon.png" target="res/drawable-mdpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-xhdpi/entel_icon.png" target="res/drawable-xhdpi/entel_icon.png"/>
 
     
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
