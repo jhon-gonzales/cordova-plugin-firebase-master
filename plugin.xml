@@ -68,18 +68,18 @@
     </config-file>
 
     
-    <widget id="cordova-plugin-firebase" version="0.2.0" xmlns:android="http://schemas.android.com/apk/res/android">
+  
     
-    <resource-file src="res/native/android/res/drawable-hdpi/entel_icon.png" target="app/src/main/res/drawable-hdpi/entel_icon.png"/>
-    <resource-file src="res/native/android/res/drawable-ldpi/entel_icon.png" target="app/src/main/res/drawable-ldpi/entel_icon.png"/>
-    <resource-file src="res/native/android/res/drawable-mdpi/entel_icon.png" target="app/src/main/res/drawable-mdpi/entel_icon.png"/>
-    <resource-file src="res/native/android/res/drawable-xhdpi/entel_icon.png" target="app/src/main/res/drawable-xhdpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-hdpi/entel_icon.png" target="res/native/android/res/drawable-hdpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-ldpi/entel_icon.png" target="res/native/android/res/drawable-ldpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-mdpi/entel_icon.png" target="res/native/android/res/drawable-mdpi/entel_icon.png"/>
+    <resource-file src="res/native/android/res/drawable-xhdpi/entel_icon.png" target="res/native/android/res/drawable-xhdpi/entel_icon.png"/>
 
     
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/entel_icon" />
         </config-file>
-    </widget>
+    
     
 
     <resource-file src="google-services.json" target="./google-services.json" />
