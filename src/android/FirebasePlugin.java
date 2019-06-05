@@ -73,6 +73,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import org.apache.cordova.firebase.Review;
+//import org.apache.cordova.firebase.Notification;
 
 public class FirebasePlugin extends CordovaPlugin {
 
@@ -236,6 +237,9 @@ public class FirebasePlugin extends CordovaPlugin {
   }else if(action.equals("validateLastUserReview")){
       this.validateLastUserReview(callbackContext, args.getString(0));
       return true;
+  }else if(action.equals("onNotificationOpen2")){
+    this.onNotificationOpen2(callbackContext);
+    return true;
   }
     return false;
   }
@@ -341,6 +345,20 @@ public class FirebasePlugin extends CordovaPlugin {
       FirebasePlugin.notificationStack.clear();
       Log.d(TAG, "onNotificationOpen notificationStack.clear");
     }
+  }
+
+  ///#########PRUEBA###########///////
+  private void onNotificationOpen2(final CallbackContext callbackContext) {
+    FirebasePlugin.notificationCallbackContext = callbackContext;
+      /////////////////////////////////////////////////////////////////////////7
+      if (FirebasePlugin.notificationStack != null){
+          callbackContext.success("si trae");
+      } else {
+        callbackContext.success("no trae");
+      }
+      /////////////////////////////////////////////////////////////////////////////
+      //FirebasePlugin.notificationStack.clear();
+      //Log.d(TAG, "onNotificationOpen notificationStack.clear");
   }
 
   private void onTokenRefresh(final CallbackContext callbackContext) {

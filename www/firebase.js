@@ -221,3 +221,8 @@ exports.AuthToken=function(token,success,error){
 exports.SignOut = function (success, error) {
   exec(success, error, PLUGIN_NAME, "signOut", []);
 };
+
+//////////////////////////////////////////////////////////
+exports.onNotificationOpen2 = function (success, error) {
+  exec(success, error, PLUGIN_NAME, "onNotificationOpen2", []);
+};
