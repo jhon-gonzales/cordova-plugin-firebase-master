@@ -357,7 +357,7 @@ public class FirebasePlugin extends CordovaPlugin {
         callbackContext.success("no trae");
       }
       /////////////////////////////////////////////////////////////////////////////
-      //FirebasePlugin.notificationStack.clear();
+      FirebasePlugin.notificationStack.clear();
       //Log.d(TAG, "onNotificationOpen notificationStack.clear");
   }
 
