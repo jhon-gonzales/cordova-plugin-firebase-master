@@ -61,7 +61,7 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
     // [END_EXCLUDE]
     
     Log.d(TAG, "FirebasePluginMessagingService onMessageReceived called");
-
+    Log.i(TAG, "aqui");
     // Pass the message to the receiver manager so any registered receivers can decide to handle it
     boolean wasHandled = FirebasePluginMessageReceiverManager.onMessageReceived(remoteMessage);
     if (wasHandled) {
@@ -266,7 +266,7 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
       FirebasePlugin.sendNotification(bundle, this.getApplicationContext());
     }
   }
-
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   private void setBadgeNumber(String badge) {
     try {
       int count = 0;
