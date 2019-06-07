@@ -190,28 +190,28 @@ exports.dynamicLinkCallback = function (dynamicLink) {
 //
 //Realtime Database
 //
-exports.Users = function (contractnumber,phoneNumber, registerDate, success, error) {
-  exec(success, error, PLUGIN_NAME, "writeUsers", [phoneNumber, registerDate, contractnumber]);
+exports.Users = function (documentNumber, phoneNumber, registerDate, success, error) {
+  exec(success, error, PLUGIN_NAME, "writeUsers", [phoneNumber, registerDate, documentNumber]);
 };
 
-exports.GetUsers = function (contractnumber, success, error){
-  exec(success, error, PLUGIN_NAME, "userExist", [contractnumber]);
+exports.GetUsers = function (documentNumber, success, error){
+  exec(success, error, PLUGIN_NAME, "userExist", [documentNumber]);
 };
 
-exports.Reviews = function (contractnumber,calificacion, date, success, error) {
-  exec(success, error, PLUGIN_NAME, "writeReviews", [calificacion, date,contractnumber]);
+exports.Reviews = function (documentNumber, calification, date, success, error) {
+  exec(success, error, PLUGIN_NAME, "writeReviews", [calification, date, documentNumber]);
 };
 
-exports.ReviewsWithComment = function(contractnumber,calificacion, comment, date, success, error ){
-  exec(success,error, PLUGIN_NAME, "writeReviewsWithComment", [calificacion,comment, date,contractnumber]);
+exports.ReviewsWithComment = function(documentNumber, calification, comment, date, success, error ){
+  exec(success,error, PLUGIN_NAME, "writeReviewsWithComment", [calification, comment, date, documentNumber]);
 };
 
-exports.GetLastReview = function(contractnumber, success, error){
-  exec(success, error, PLUGIN_NAME, "validateLastUserReview", [contractnumber]);
+exports.GetLastReview = function(documentNumber, success, error){
+  exec(success, error, PLUGIN_NAME, "validateLastUserReview", [documentNumber]);
 };
 
-exports.WriteDate = function(contractnumber, date, success, error){
-  exec(success, error, PLUGIN_NAME, "writeDate", [date, contractnumber]);
+exports.WriteDate = function(documentNumber, date, success, error){
+  exec(success, error, PLUGIN_NAME, "writeDate", [date, documentNumber]);
 };
 
 exports.AuthToken=function(token,success,error){
@@ -220,9 +220,4 @@ exports.AuthToken=function(token,success,error){
 
 exports.SignOut = function (success, error) {
   exec(success, error, PLUGIN_NAME, "signOut", []);
-};
-
-//////////////////////////////////////////////////////////
-exports.onNotificationOpen2 = function (success, error) {
-  exec(success, error, PLUGIN_NAME, "onNotificationOpen2", []);
 };

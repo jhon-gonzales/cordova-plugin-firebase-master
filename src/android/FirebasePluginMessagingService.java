@@ -61,7 +61,6 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
     // [END_EXCLUDE]
     
     Log.d(TAG, "FirebasePluginMessagingService onMessageReceived called");
-    Log.i(TAG, "aqui");
     // Pass the message to the receiver manager so any registered receivers can decide to handle it
     boolean wasHandled = FirebasePluginMessageReceiverManager.onMessageReceived(remoteMessage);
     if (wasHandled) {

@@ -73,7 +73,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import org.apache.cordova.firebase.Review;
-//import org.apache.cordova.firebase.Notification;
 
 public class FirebasePlugin extends CordovaPlugin {
 
@@ -237,9 +236,6 @@ public class FirebasePlugin extends CordovaPlugin {
   }else if(action.equals("validateLastUserReview")){
       this.validateLastUserReview(callbackContext, args.getString(0));
       return true;
-  }else if(action.equals("onNotificationOpen2")){
-    this.onNotificationOpen2(callbackContext);
-    return true;
   }
     return false;
   }
@@ -345,20 +341,6 @@ public class FirebasePlugin extends CordovaPlugin {
       FirebasePlugin.notificationStack.clear();
       Log.d(TAG, "onNotificationOpen notificationStack.clear");
     }
-  }
-
-  ///#########PRUEBA###########///////
-  private void onNotificationOpen2(final CallbackContext callbackContext) {
-    FirebasePlugin.notificationCallbackContext = callbackContext;
-      /////////////////////////////////////////////////////////////////////////7
-      if (FirebasePlugin.notificationStack != null){
-          callbackContext.success("si trae");
-      } else {
-        callbackContext.success("no trae");
-      }
-      /////////////////////////////////////////////////////////////////////////////
-      FirebasePlugin.notificationStack.clear();
-      //Log.d(TAG, "onNotificationOpen notificationStack.clear");
   }
 
   private void onTokenRefresh(final CallbackContext callbackContext) {
@@ -1075,10 +1057,10 @@ public class FirebasePlugin extends CordovaPlugin {
   ///////////////////////
 
 
-public void writeUsers(final CallbackContext callbackContext, String phoneNumber, String registerDate, String contractnumber){
+public void writeUsers(final CallbackContext callbackContext, String phoneNumber, String registerDate, String documentNumber){
     try{
       DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
+      mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(documentNumber);
       Users users = new Users(phoneNumber, registerDate);
       mDatabase.setValue(users, new DatabaseReference.CompletionListener(){
         @Override
@@ -1100,10 +1082,10 @@ public void writeUsers(final CallbackContext callbackContext, String phoneNumber
   }
 
 
-public void writeDate(final CallbackContext callbackContext, String date, String contractnumber) {    
+public void writeDate(final CallbackContext callbackContext, String date, String documentNumber) {    
         try {  
           DatabaseReference mDatabase;
-          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
+          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(documentNumber);
           mDatabase.setValue(date, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -1124,11 +1106,11 @@ public void writeDate(final CallbackContext callbackContext, String date, String
   }
 
 
-public void writeReviews(final CallbackContext callbackContext, String calificacion, String date,String contractnumber) {    
+public void writeReviews(final CallbackContext callbackContext, String calification, String date, String documentNumber) {    
         try {  
           DatabaseReference mDatabase;
-          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
-          Review reviews = new Review(calificacion, date);
+          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(documentNumber);
+          Review reviews = new Review(calification, date);
           mDatabase.push().setValue(reviews, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -1149,11 +1131,11 @@ public void writeReviews(final CallbackContext callbackContext, String calificac
   }
 
 
-public void writeReviewsWithComment(final CallbackContext callbackContext, String calificacion, String comment, String date, String contractnumber) {    
+public void writeReviewsWithComment(final CallbackContext callbackContext, String calification, String comment, String date, String documentNumber) {    
         try { 
           DatabaseReference mDatabase;
-          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
-          Review reviews = new Review(calificacion, comment, date);
+          mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(documentNumber);
+          Review reviews = new Review(calification, comment, date);
           mDatabase.push().setValue(reviews, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
@@ -1174,11 +1156,11 @@ public void writeReviewsWithComment(final CallbackContext callbackContext, Strin
   }
 
 
-public void userExist(final CallbackContext callbackContext, final String contractnumber){
+public void userExist(final CallbackContext callbackContext, final String documentNumber){
     
     //final ArrayList<String> isOnFirebase = new ArrayList<String>();
     DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(contractnumber);
+      mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(documentNumber);
       mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -1206,10 +1188,10 @@ public void userExist(final CallbackContext callbackContext, final String contra
   }
 
 
-public void validateLastUserReview(final CallbackContext callbackContext, String contractnumber){
+public void validateLastUserReview(final CallbackContext callbackContext, String documentNumber){
       final ArrayList<Review> lastReview = new ArrayList<Review>();
       DatabaseReference mDatabase;
-      mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(contractnumber);
+      mDatabase = FirebaseDatabase.getInstance().getReference().child("reviews").child(documentNumber);
 
       mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
@@ -1225,7 +1207,7 @@ public void validateLastUserReview(final CallbackContext callbackContext, String
               }else{
                   for (Review userReview : lastReview){
                   if (orderOfReview == lastReview.size() - 1){
-                    callbackContext.success(userReview.getCalificacion());
+                    callbackContext.success(userReview.getCalification());
                   }else{
                     orderOfReview++;
                   }

@@ -1,29 +1,29 @@
 package org.apache.cordova.firebase;
 public class Review {
 
-    private String calificacion;
+    private String calification;
     private String comment;
     private String date;
     public Review() {
     }
 
-    public Review(String calificacion, String date) {
-        this.calificacion = calificacion;
+    public Review(String calification, String date) {
+        this.calification = calification;
         this.date = date;
     }
 
-    public Review(String calificacion, String comment, String date) {
-        this.calificacion = calificacion;
+    public Review(String calification, String comment, String date) {
+        this.calification = calification;
         this.comment = comment;
         this.date = date;
     }
 
-    public String getCalificacion() {
-        return calificacion;
+    public String getCalification() {
+        return calification;
     }
 
-    public void setCalificacion(String calificacion) {
-        this.calificacion = calificacion;
+    public void setCalification(String calification) {
+        this.calification = calification;
     }
 
     public String getComment() {
