@@ -508,12 +508,12 @@ static FirebasePlugin *firebasePlugin;
 }
 
 - (void)writeReviews:(CDVInvokedUrlCommand *)command {
-    NSString *calificacion = [command.arguments objectAtIndex:0];
+    NSString *calification = [command.arguments objectAtIndex:0];
     NSString *date = [command.arguments objectAtIndex:1];
     NSString *contractNumber = [command.arguments objectAtIndex:2];
     NSString *key = [[[[[[FIRDatabase database] reference] child:@"reviews"] child:contractNumber] childByAutoId] key];
     NSDictionary *review = @{
-                            @"calificacion":calificacion,
+                            @"calification":calification,
                             @"date":date
                             };
      [[[[[[FIRDatabase database] reference] child: @"reviews"] child:contractNumber] child:key] setValue:review withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
@@ -528,13 +528,13 @@ static FirebasePlugin *firebasePlugin;
 }
 
 - (void)writeReviewsWithComment:(CDVInvokedUrlCommand *)command {
-    NSString *calificacion = [command.arguments objectAtIndex:0];
+    NSString *calification = [command.arguments objectAtIndex:0];
     NSString *comment = [command.arguments objectAtIndex:1];
     NSString *date = [command.arguments objectAtIndex:2];
     NSString *contractNumber = [command.arguments objectAtIndex:3];
     NSString *key = [[[[[[FIRDatabase database] reference] child:@"reviews"] child:contractNumber] childByAutoId] key];
     NSDictionary *review = @{
-                            @"calificacion":calificacion,
+                            @"calification":calification,
                             @"comment":comment,
                             @"date":date
                             };
