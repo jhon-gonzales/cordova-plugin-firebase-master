@@ -10,15 +10,8 @@ var constants = {
   folderNamePrefix: "firebase."
 };
 
-module.exports = function(context) {
-  var cordovaAbove8 = utils.isCordovaAbove(context, 8);
-  var cordovaAbove7 = utils.isCordovaAbove(context, 7);
-  var defer;
-  if (cordovaAbove8) {
-    defer = require('q').defer();
-  } else {
-    defer = context.requireCordovaModule("q").defer();
-  }
+module.exports = function (context) {
+  var defer = context.requireCordovaModule("q").defer();
   
   var appId = utils.getAppId(context);
 
@@ -29,14 +22,8 @@ module.exports = function(context) {
   }
 
   var wwwPath = utils.getResourcesFolderPath(context, platform, platformConfig);
-  var sourceFolderPath;
+  var sourceFolderPath = path.join(wwwPath, constants.folderNamePrefix + appId);
 
-  if (cordovaAbove7) {
-    sourceFolderPath = path.join(context.opts.projectRoot, "www", constants.folderNamePrefix + appId);
-  } else {
-    sourceFolderPath = path.join(wwwPath, constants.folderNamePrefix + appId);
-  }
-  
   var googleServicesZipFile = utils.getZipFile(sourceFolderPath, constants.googleServices);
   if (!googleServicesZipFile) {
     utils.handleError("No zip file found containing google services configuration file", defer);
@@ -63,14 +50,6 @@ module.exports = function(context) {
   var destFilePath = path.join(context.opts.plugin.dir, fileName);
 
   utils.copyFromSourceToDestPath(defer, sourceFilePath, destFilePath);
-
-  if (cordovaAbove7) {
-    var destPath = path.join(context.opts.projectRoot, "platforms", platform, "app");
-    if (utils.checkIfFolderExists(destPath)) {
-      var destFilePath = path.join(destPath, fileName);
-      utils.copyFromSourceToDestPath(defer, sourceFilePath, destFilePath);
-    }
-  }
       
   return defer.promise;
 }
