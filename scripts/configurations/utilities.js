@@ -74,11 +74,51 @@ function getZipFile(folder, zipFileName) {
 }
 
 function getAppId(context) {
+  var cordovaAbove8 = isCordovaAbove(context, 8);
+  var et;
+  if (cordovaAbove8) {
+    et = require('elementtree');
+  } else {
+    et = context.requireCordovaModule('elementtree');
+  }
+
   var config_xml = path.join(context.opts.projectRoot, 'config.xml');
-  var et = context.requireCordovaModule('elementtree');
   var data = fs.readFileSync(config_xml).toString();
   var etree = et.parse(data);
   return etree.getroot().attrib.id;
+}
+
+function isCordovaAbove(context, version) {
+  var cordovaVersion = context.opts.cordova.version;
+  console.log(cordovaVersion);
+  var sp = cordovaVersion.split('.');
+  return parseInt(sp[0]) >= version;
+}
+
+function getAndroidTargetSdk(context) {
+  var cordovaAbove8 = isCordovaAbove(context, 8);
+  var et;
+  if (cordovaAbove8) {
+    et = require('elementtree');
+  } else {
+    et = context.requireCordovaModule('elementtree');
+  }
+
+  var androidManifestPath1 = path.join("platforms", "android", "AndroidManifest.xml");
+  var androidManifestPath2 = path.join("platforms", "android", "app", "src", "main", "AndroidManifest.xml");
+
+  var data;
+  if (checkIfFolderExists(androidManifestPath1)) {
+    data = fs.readFileSync(androidManifestPath1).toString();
+  } else if (checkIfFolderExists(androidManifestPath2)){
+    data = fs.readFileSync(androidManifestPath2).toString();
+  } else {
+    return;
+  }
+
+  var etree = et.parse(data);
+  var sdk = etree.findall('./uses-sdk')[0].get('android:targetSdkVersion');
+  return parseInt(sdk);
 }
 
 function copyFromSourceToDestPath(defer, sourcePath, destPath) {
@@ -92,7 +132,12 @@ function copyFromSourceToDestPath(defer, sourcePath, destPath) {
   });
 }
 
+function checkIfFolderExists(path) {
+  return fs.existsSync(path);
+}
+
 module.exports = {
+  isCordovaAbove,
   handleError,
   getZipFile,
   getResourcesFolderPath,
@@ -100,5 +145,7 @@ module.exports = {
   getAppId,
   copyFromSourceToDestPath,
   getFilesFromPath,
-  createOrCheckIfFolderExists
+  createOrCheckIfFolderExists,
+  checkIfFolderExists,
+  getAndroidTargetSdk
 };

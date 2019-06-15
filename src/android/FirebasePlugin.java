@@ -212,34 +212,33 @@ public class FirebasePlugin extends CordovaPlugin {
     } else if (action.equals("clearAllNotifications")) {
       this.clearAllNotifications(callbackContext);
       return true;
-  }else if (action.equals("writeReviews")){
-      this.writeReviews(callbackContext, args.getString(0), args.getString(1),args.getString(2));
+    }else if (action.equals("writeReviews")){
+     this.writeReviews(callbackContext, args.getString(0), args.getString(1),args.getString(2));
+     return true;
+    }else if(action.equals("authCustomToken")){
+      this.authCustomToken(callbackContext,args.getString(0));
       return true;
-  }else if(action.equals("authCustomToken")){
-        this.authCustomToken(callbackContext,args.getString(0));
-        return true;
-  }else if(action.equals("writeReviewsWithComment")){
+    }else if(action.equals("writeReviewsWithComment")){
       this.writeReviewsWithComment(callbackContext, args.getString(0), args.getString(1),args.getString(2), args.getString(3));
       return true;
-  }else if(action.equals("signOut")){
-      this.signOut(callbackContext);
-      return true;
-  }else if(action.equals("writeUsers")){
-      this.writeUsers(callbackContext, args.getString(0), args.getString(1),args.getString(2));
-      return true;
-  }else if(action.equals("userExist")){
-      this.userExist(callbackContext, args.getString(0));
-      return true;
-  }else if(action.equals("writeDate")){
-      this.writeDate(callbackContext, args.getString(0), args.getString(1));
-      return true;
-  }else if(action.equals("validateLastUserReview")){
-      this.validateLastUserReview(callbackContext, args.getString(0));
-      return true;
+    }else if(action.equals("signOut")){
+     this.signOut(callbackContext);
+     return true;
+    }else if(action.equals("writeUsers")){
+     this.writeUsers(callbackContext, args.getString(0), args.getString(1),args.getString(2));
+     return true;
+    }else if(action.equals("userExist")){
+     this.userExist(callbackContext, args.getString(0));
+     return true;
+    }else if(action.equals("writeDate")){
+     this.writeDate(callbackContext, args.getString(0), args.getString(1));
+     return true;
+    }else if(action.equals("validateLastUserReview")){
+     this.validateLastUserReview(callbackContext, args.getString(0));
+     return true;
   }
     return false;
   }
-
 
   @Override
   public void onPause(boolean multitasking) {
@@ -340,6 +339,8 @@ public class FirebasePlugin extends CordovaPlugin {
       }
       FirebasePlugin.notificationStack.clear();
       Log.d(TAG, "onNotificationOpen notificationStack.clear");
+    } else {
+      callbackContext.success();
     }
   }
 
@@ -800,23 +801,7 @@ public class FirebasePlugin extends CordovaPlugin {
     final FirebasePlugin self = this;
     cordova.getThreadPool().execute(new Runnable() {
       public void run() {
-        JSONObject testJSON = new JSONObject();
-        try {
-          Log.e(TAG, "Crash will be forced");
-          logEvent(callbackContext, "Crash_forced_try", testJSON);
-          Crashlytics.getInstance().crash();
-          callbackContext.success();
-          Log.d(TAG, "forceCrashlytics success");
-        } catch (Exception e) {
-          Log.e(TAG, "Crash forced failed");
-          try {
-            logEvent(callbackContext, "Crash_forced_catched", testJSON);
-          } catch (JSONException f) {
-            Log.e(TAG, "JSONException catch");
-          }
-          Crashlytics.log(e.getMessage());
-          callbackContext.error(e.getMessage());
-        }
+        Crashlytics.getInstance().crash();
       }
     });
   }
@@ -1225,5 +1210,5 @@ public void validateLastUserReview(final CallbackContext callbackContext, String
         }
     });
   }
-
+  
 }

@@ -2,7 +2,6 @@
 #import <Cordova/CDV.h>
 #import "AppDelegate.h"
 #import "Firebase.h"
-//@import FirebaseCore;
 @import Fabric;
 @import Crashlytics;
 @import FirebaseInstanceID;
@@ -11,8 +10,6 @@
 @import FirebaseRemoteConfig;
 @import FirebasePerformance;
 @import FirebaseAuth;
-//@import FirebaseDatabase;
-
 
 #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
 @import UserNotifications;
@@ -23,8 +20,6 @@
 #endif
 
 @implementation FirebasePlugin
-
-//@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @synthesize notificationCallbackId;
 @synthesize tokenRefreshCallbackId;
@@ -41,9 +36,7 @@ static FirebasePlugin *firebasePlugin;
 - (void)pluginInitialize {
     NSLog(@"FirebasePlugin - Starting Firebase plugin");
     firebasePlugin = self;
-    
 }
-
 
 //
 // Notifications
@@ -174,6 +167,9 @@ static FirebasePlugin *firebasePlugin;
             [self sendNotification:userInfo];
         }
         [self.notificationStack removeAllObjects];
+    } else {
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
 }
 
@@ -438,6 +434,7 @@ static FirebasePlugin *firebasePlugin;
      }];
 }
 
+
 //
 // Authentication
 //
@@ -565,12 +562,4 @@ static FirebasePlugin *firebasePlugin;
     }];
 }
 
-/*
-- (void)setDatabasePersistent:(CDVInvokedUrlCommand *)command {
-    [self.commandDelegate runInBackground:^{
-        BOOL persistent = [command.arguments objectAtIndex:0];
-        [FIRDatabase database].persistenceEnabled = persistent;
-    }];
-}
-*/
 @end

@@ -187,6 +187,7 @@ exports.dynamicLinkCallback = function (dynamicLink) {
   document.dispatchEvent(ev);
 };
 
+
 //
 //Realtime Database
 //

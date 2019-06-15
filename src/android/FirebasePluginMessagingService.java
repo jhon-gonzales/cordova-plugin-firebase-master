@@ -61,6 +61,7 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
     // [END_EXCLUDE]
     
     Log.d(TAG, "FirebasePluginMessagingService onMessageReceived called");
+
     // Pass the message to the receiver manager so any registered receivers can decide to handle it
     boolean wasHandled = FirebasePluginMessageReceiverManager.onMessageReceived(remoteMessage);
     if (wasHandled) {
@@ -207,6 +208,7 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
 
       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
         int accentID = getResources().getIdentifier("accent", "color", getPackageName());
+        Log.d(TAG, "AccentId: " + Integer.toString(accentID));
         notificationBuilder.setColor(getResources().getColor(accentID, null));
       }
 
@@ -265,7 +267,7 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
       FirebasePlugin.sendNotification(bundle, this.getApplicationContext());
     }
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   private void setBadgeNumber(String badge) {
     try {
       int count = 0;
