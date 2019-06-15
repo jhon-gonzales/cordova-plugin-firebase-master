@@ -7,9 +7,9 @@
   <license>MIT</license>
 
   <engines>
-    <engine name="cordova" version=">=3.2.0" />
-    <engine name="cordova-android" version=">=4.3.0" />
-    <engine name="cordova-ios" version=">=4.3.0" />
+    <engine name="cordova" version=">=4.0.0" />
+    <engine name="cordova-android" version=">=4.0.0" />
+    <engine name="cordova-ios" version=">=5.0.0" />
   </engines>
 
   <js-module name="FirebasePlugin" src="www/firebase.js">
@@ -17,7 +17,7 @@
   </js-module>
 
   <hook type="before_plugin_install" src="scripts/configurations/installDependencies.js" />
-  <hook type="before_plugin_add" src="scripts/configurations/unzipAndCopyConfigurations.js" />
+  <hook type="before_plugin_install" src="scripts/configurations/unzipAndCopyConfigurations.js" />
 
   <preference name="APP_DOMAIN" default="/" />
   <preference name="APP_PATH" default="/" />
