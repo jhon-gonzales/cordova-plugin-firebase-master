@@ -78,7 +78,6 @@
     <source-file src="src/android/FirebasePluginMessageReceiverManager.java" target-dir="src/org/apache/cordova/firebase" />
     <source-file src="src/android/Users.java" target-dir="src/org/apache/cordova/firebase" />
     <source-file src="src/android/Review.java" target-dir="src/org/apache/cordova/firebase" />
-    <source-file src="src/android/FirebaseService.java" target-dir="src/org/apache/cordova/firebase"/>
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
     <framework src="com.google.gms:google-services:4.2.0" />
