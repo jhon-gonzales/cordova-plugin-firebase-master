@@ -339,8 +339,6 @@ public class FirebasePlugin extends CordovaPlugin {
       }
       FirebasePlugin.notificationStack.clear();
       Log.d(TAG, "onNotificationOpen notificationStack.clear");
-    } else {
-      callbackContext.success();
     }
   }
 
