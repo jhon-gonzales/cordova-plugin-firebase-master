@@ -96,6 +96,13 @@
     <hook type="before_plugin_uninstall" src="scripts/crashlytics/ios/before_plugin_uninstall.js" />
     <hook type="before_plugin_install" src="scripts/configurations/unzipAndCopySound.js" />
 
+    <config-file target="*-Info.plist" parent="FirebaseDynamicLinksCustomDomains">
+			<array>
+				<string>https://outsystemsenterprise.page.link/47bd</string>
+				<string>https://outsystemsenterprise.page.link/jdF1</string>
+			</array>
+		</config-file>
+
     <config-file parent="/*" target="config.xml">
       <feature name="FirebasePlugin">
         <param name="ios-package" value="FirebasePlugin" />
@@ -124,6 +131,7 @@
     <framework src="FirebaseAuth" type="podspec" spec="~> 4.6.1" />
     <framework src="FirebaseRemoteConfig" type="podspec" spec="~> 2.1.3" />
     <framework src="FirebasePerformance" type="podspec" spec="~> 1.1.3" />
+    <framework src="FirebaseDynamicLinks" type="podspec" spec="~> 2.3.2"/>
     <framework custom="true" src="src/ios/Firebase/Database/FirebaseDatabase.framework" />
   </platform>
 </plugin>
