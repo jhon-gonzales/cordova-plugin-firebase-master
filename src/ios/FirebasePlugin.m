@@ -459,10 +459,12 @@ static FirebasePlugin *firebasePlugin;
         if (!status) {
         //NSLog(@"Error signing out: %@", signOutError);
         CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Error signing out"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }else{
         CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Signing out successful."];
-        }
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }
+        
 }
 
 
